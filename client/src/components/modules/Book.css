@@ -1,0 +1,17 @@
+.book {
+    width: 20px;
+    height: 50px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+
+  
+  }
+
+
+  .book.selected {
+    border: solid black;
+    width: 25px;
+    height: 55px;
+
+  
+  }

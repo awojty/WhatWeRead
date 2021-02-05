@@ -1,0 +1,36 @@
+.book-card {
+    border: solid var(--darkblue);
+    background-color: white;
+    border-radius: 20%;
+    width:30%;
+    height:50%;
+    margin:10px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.book-card.selected{
+    border: 2px solid red;
+    background-color: rgb(168, 74, 90);
+
+}
+
+.book-card:hover {
+    cursor:pointer;
+    background-color:ivory;
+    
+}
+.info-section{
+    display: flex;
+    flex-direction: column;
+}
+
+.book-info{
+    margin:4px !important;
+    padding: 0 !important;
+}
+.book-image{
+    margin: 15px;
+    border: 2px solid blue;
+}

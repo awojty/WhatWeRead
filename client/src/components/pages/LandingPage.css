@@ -1,0 +1,84 @@
+.starter-container{
+    
+
+    display: flex;
+    -webkit-box-align: center;
+    flex-direction: row;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+  
+
+}
+
+.starter-image{
+    max-width: 50%;
+
+
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+    padding:5px;
+}
+
+.app-c{
+    max-height:100%;
+}
+
+.login-button{
+    background-color: blueviolet !important;
+}
+
+.description-section{
+    
+    display: flex;
+    -webkit-box-align: center;
+    flex-direction: column;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    font-family: 'Montserrat', sans-serif;
+    padding-bottom: 20px;
+
+
+}
+
+.bookclub-title{
+    color: var(--darkblue);
+    font-size: 50px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.button-wrapper{
+    margin:10px;
+}
+
+.buttons-wrapper{
+    display:flex;
+    flex-direction: row;
+}
+
+.navigation-section{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    height:100%;
+    display:flex;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+   
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    align-content: flex-start;
+
+}
+
+.navigation-item{
+    padding:5px;
+    font-weight: 200;
+}
+
+

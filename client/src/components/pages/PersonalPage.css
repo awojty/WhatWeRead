@@ -1,0 +1,53 @@
+.friend-requests-container{
+    border-radius: 15px;
+    border-style: solid;
+    border-color: cornflowerblue;
+    background-color: white;
+    padding:10px;
+    margin:10px;
+
+}
+
+.invitation-item{
+    background-color: var(--paleblue);
+    border-style: solid;
+    border-radius: 10px;
+    padding:5px;
+    border-color:darkblue;
+
+}
+
+.book-button{
+    min-height:140px;
+    background-image: url("../Assets/personal_page_icon.png");
+    max-height:56%;
+    color: white;
+    font-weight: bolder;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border:none;
+    background-color: white;
+}
+
+.bookclubs{
+    background-image: url("../Assets/personal_page_icon2.png") !important;
+    color: blue !important;
+}
+
+.books-section{
+    display: flex;
+    flex-direction: column;
+    width:150px;
+    justify-content: space-around;
+}
+
+.personal-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}

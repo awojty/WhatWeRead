@@ -1,0 +1,24 @@
+.image{
+    width:100px;
+    height: 200px;
+}
+
+.bookclub-avatar{
+    border-radius:50%;
+    width:100px;
+    height:100px;
+
+}
+
+.bookclub-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.bookclub-container{
+
+    display: flex;
+    flex-direction: row;
+
+
+}

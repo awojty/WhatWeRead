@@ -1,0 +1,17 @@
+.resize{
+
+    top: 10% !important;
+    left: 10% !important;
+
+    width: 80% !important;
+    height: 80% !important;
+
+}
+
+.close {
+    color: red;
+    float: right;
+    cursor:pointer;
+    font-weight: bolder;
+    font-size: 20px;
+  }

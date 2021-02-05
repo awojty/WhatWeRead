@@ -1,0 +1,89 @@
+.homedashboard-container {
+    min-height: 100vh;
+    width:300vw;
+    padding:0;
+    margin:0;
+    background-image: url("../Assets/background.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+  }
+
+.bookcases-container{
+  display:flex;
+  flex-direction:row;
+  width:auto;
+  margin-bottom:100px;
+  
+}
+
+.cat{
+  background-image: url("../Assets/ginger-cat-gardener-cat.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width:200px;
+  height:200px;
+}
+
+.top-container{
+  
+ 
+  flex-grow: 1;
+  min-height: 50px;
+}
+
+.stuff-container{
+  flex-grow: 3;
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  align-items: flex-end;
+  min-height: fit-content;
+  flex-basis: 75%;
+}
+.floor-container{
+  flex-grow: 3;
+  min-height: 50px;
+  flex-basis: 25%;
+}
+
+.arrangement-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.paintings-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: fit-content;
+
+
+}
+
+.painting-wrapper{
+  background-image: url("../Assets/image.png");
+  width:100px;
+  height: 100px;
+  margin:10px;
+
+}
+
+.door-component{
+  background-image: url("../Assets/door.png");
+  height:400px;
+  width:200px
+  
+
+}
+
+
+
+

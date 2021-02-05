@@ -1,0 +1,42 @@
+.progress-bar {
+    height: 20px;
+    width: 350px;
+    position: relative;
+    background-color: #e0e0de;
+    border-radius: 50px;
+    border: 1px solid #333;
+    overflow: hidden;
+  }
+  
+  .filler {
+    position: relative;
+    height: 100%;
+    background: #6B8E23;
+    animation: progressBar 1s ease-in-out;
+    animation-fill-mode: both;
+  }
+  
+  .label-styles {
+    position: absolute;
+    top: 20%;
+    font-weight: bold;
+    animation: progressBarText 1s ease-in-out;
+  }
+  
+  .duration {
+    background:#B22222!important;
+  }
+  
+  @keyframes progressBar {
+    0% { width: 0; }
+    100% { width: 50; }
+  }
+  
+  .u-text-white {
+    color: white;
+  }
+  
+  .u-text-grey {
+    color: var(--grey);
+  }
+  

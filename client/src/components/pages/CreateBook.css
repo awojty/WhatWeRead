@@ -1,0 +1,41 @@
+.book-rectangle{
+    width: 50px;
+    height:200px;
+    background-color: red;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    margin:20px;
+
+
+}
+
+.bookadd-container{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+
+}
+
+.information-container{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+   
+    align-items: center;
+    align-content: center;
+
+}
+
+.color-information{
+    align-items: center;
+    align-content: center;
+
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+}

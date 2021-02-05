@@ -1,0 +1,12 @@
+.note{
+    width: 20vw;
+    height: fit-content;
+    background-color: ivory;
+    border: solid white;
+    margin: 10px;
+    border-radius: 5%;
+}
+
+.note-title{
+    word-break: break-all;
+}
