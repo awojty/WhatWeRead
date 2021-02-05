@@ -1,9 +1,10 @@
 
 
-require('dotenv').config();
 
 const validator = require("./validator");
 validator.checkSetup();
+
+require('dotenv').config();
 
 //import libraries needed for the webserver to work!
 const http = require("http");
@@ -20,7 +21,7 @@ const socketManager = require("./server-socket");
 
 // Server configuration below
 // TODO change connection URL after setting up your team database
-const mongoConnectionURL = env.process.ATLAS_SRV;
+const mongoConnectionURL = process.env.ATLAS_SRV;
 // TODO change database name to the name you chose
 const databaseName = "book-club";
 
