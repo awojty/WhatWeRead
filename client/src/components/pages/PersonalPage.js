@@ -370,7 +370,7 @@ goToAddBookclubs =() =>{
             <button className="book-button" onClick={this.goToLibrary}>Go To Library</button>
             <button className="book-button bookclubs blue-text" onClick={this.goToBookclubs}>Go To Bookclubs</button>
             <button className="book-button" onClick={this.goToAddBookclubs}>Create Bookclubs</button>
-            <button className="book-button" onClick={this.goToLibrary}>Go To Community</button>
+            <button className="book-button" onClick={()=> navigate("/community")}>Go To Community</button>
 
 
 
