@@ -11,9 +11,15 @@ import ImageUploader from 'react-images-upload';
 
 import FileBase from 'react-file-base64';
 // import { storage } from './firebase-config';
-import DefaultImg from '../Assets/book1.png';
+import DefaultImg from "./ginger-cat-gardener-cat.png";
+
+import plawcer from "./ginger-cat-gardener-cat.png";
+
+import placer from "../Assets/landing_page_photo.png";
 import SearchInternetPopUp from "../modules/SearchInternetPopUp";
 import "./BookclubCreate.css";
+import Button from '@material-ui/core/Button';
+
 
 
 /**
@@ -37,7 +43,7 @@ class BookclubCreate extends Component {
         theme:"topic",
         book_title:"bookTitle",
         searchInternet:false,
-        image : book1,
+        image : DefaultImg,
         uploading: false,
         multerImage: DefaultImg,
         firebaseImage: DefaultImg,
@@ -80,11 +86,13 @@ class BookclubCreate extends Component {
   }
 
   componentDidMount(){
+
+    console.log("props",this.props);
       this.setState(
           {
             title:this.props.title,
             author:this.props.author,
-            image:this.props.image,
+           
             book_id:this.props.book_id
           }
 
@@ -151,26 +159,32 @@ class BookclubCreate extends Component {
       return(
       <>
         <div>
-            <p>
+            <h4 className="section-name">
               Bookclub Title
               <input
+              className="label-title"
               type="string"
               placeholder={this.state.title}
               onChange={this.handleTitle}/>
               
-            </p>
+            </h4>
             </div>
 
 
             <div>
-            <p>
+            <h4 className="section-name">
               Bookclub Description
-              <input
-              type="string"
+              <textarea 
+              name="Text1" cols="30" rows="5"
+              className="label-description"
+              type="textarea"
               placeholder={"This bookclub is about..."}
-              onChange={this.handleDescription}/>
+              onChange={this.handleDescription}
+              >
+              </textarea>
+            
               
-            </p>
+            </h4>
             </div>
 
 
@@ -179,61 +193,61 @@ class BookclubCreate extends Component {
     }else{
       return(
         <div>
-
-     
-
-            <button onClick={this.handleSearch}>Search the internet for a book</button>
-
-
+          <div className="intro">
+            <Button variant="contained" color="primary" onClick={this.handleSearch}>Search the internet for a book</Button>
+            </div>
             <div>
-
-
-            <p>
-
+            <h4 className="section-name">
             Bookclub Title
             <input
+             className="label-title"
             type="string"
             placeholder={this.state.title}
             onChange={this.handleTitle}/>
 
-            </p>
+            </h4>
             </div>
 
             
-            <div>
+            <div className="label-category">
 
-            <p>
-
+            <h4 className="section-name">
             Book Title
             <input
+             className="label-title"
             type="string"
             placeholder={this.state.book_title}
             onChange={this.handleBookTitle}/>
 
-            </p>
+            </h4>
             </div>
 
             <div>
-            <p>
+            <h4 className="section-name">
             Book Author
             <input
+             className="label-title"
             type="string"
             placeholder={this.state.author}
             onChange={this.handleAuthor}/>
-
-            </p>
+            </h4>
             </div>
 
 
             <div>
-            <p>
-            Bookclub Description
-            <input
-            type="string"
-            placeholder={"This bookclub is about..."}
-            onChange={this.handleDescription}/>
-
-            </p>
+            <h4 className="section-name">
+              Bookclub Description
+              <textarea 
+              name="Text1" cols="30" rows="5"
+              className="label-description"
+              type="textarea"
+              placeholder={"This bookclub is about..."}
+              onChange={this.handleDescription}
+              >
+              </textarea>
+            
+              
+            </h4>
             </div>
         </div>
         
@@ -318,17 +332,17 @@ class BookclubCreate extends Component {
 
   render() {
 
-    console.log(this.state);
+    console.log("STATE", this.state);
 
     return (
       <div>
         <NavBar/>
-        <p>Fill in the fields to create a bookclub. If you want to create one for a specific book, select "Book bookclub". If you want to create bookclub for a specific topic, select "Topic bookclub"
-          When you create a bookclub for a book, you have an option to fill in teh fields automatically by slecting a book from an internet
+        <p className="section-name intro">Fill in the fields to create a bookclub. If you want to create one for a specific book, select "Book bookclub". If you want to create bookclub for a specific topic, select "Topic bookclub".
+          When you create a bookclub for a book, you have an option to fill in the fields automatically by selecting a book from the internet. To allow other members to add their friends to the bookclub, tick the Allow the last checkbox. Otherwise, only the creator of the bookclub can do that.
         </p>
         <div className="bookclub-container">
             <div className="bookclub-info">
-                  <p>How do you want to create a bookclub?</p>
+                  <h4>How do you want to create a bookclub?</h4>
 
                   <div className="toggle-radio u-box-shadow u-margin-left-20">       
                                   <input
@@ -351,27 +365,28 @@ class BookclubCreate extends Component {
                                   <label className="right u-bold" htmlFor="quantity">Book bookclub</label>
                   </div>
                   {this.returnThemeForm()}
-                  <button type="submit" onClick={this.onSubmit}>Create Bookclub</button>
+                  <label className="section-name">
+                  <input
+                  type="checkbox"
+                  onChange={this.handleAddFriends}
+                  ></input>
+                      Allow adding friends by members
+                  </label>
+                  <div className="button-wrapper">
+                  <Button fullWidth={false} variant="outlined" color="primary" type="submit" onClick={this.onSubmit}>Create Bookclub</Button>
+                  </div>
             </div>
-            <div className="bookclub-info">
-                <p>You bookclub avatar</p>
+            <div className="bookclub-info container-avatar">
+                <h2>You bookclub avatar</h2>
                 <img src={this.state.image} className="bookclub-avatar"></img>
-                <button onClick={this.uploadAvatar}>Change The avatar</button>
+
                 <div className="process__upload-btn">
+                  <h4>Upload your avatar</h4>
               <FileBase type="file" multiple={false} onDone={this.getBaseFile.bind(this)} />
             </div>
             </div>
      
         {this.state.searchInternet ? <SearchInternetPopUp  toggle={this.handleSearch} handleSelect={this.handleSelect}/> : null }
-        <div>add firneds</div>
-        
-        <input
-        type="checkbox"
-        onChange={this.handleAddFriends}
-        ></input>
-
-        
-        {this.state.pictures.length>0 ?  <img className="image" src={this.state.pictures[0]}/> : null }
         </div>
 
         

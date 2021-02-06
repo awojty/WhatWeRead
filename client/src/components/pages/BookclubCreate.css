@@ -5,20 +5,70 @@
 
 .bookclub-avatar{
     border-radius:50%;
-    width:100px;
-    height:100px;
+    width:200px;
+    height:200px;
+    border: solid black;
+    margin:20px;
+    /* background-image: url("../Assets/book.png"); */
 
 }
 
 .bookclub-info{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: stretch;
+
 }
 
 .bookclub-container{
 
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+    height:100%;
 
 
+}
+
+
+.container-avatar{
+
+    justify-content: center !important;
+    align-items: center;
+    align-content: center;
+
+}
+.label-description{
+    padding: 2px;
+    margin:10px;
+    width:80%;
+    height:100px;
+   
+    word-wrap: break-word;
+}
+
+.label-title{
+    padding: 2px;
+    margin:10px;
+
+}
+
+.section-name{
+    margin:5px !important;
+    font-weight: bold;
+}
+.intro{
+    margin:20px !important;
+    margin-bottom: 0 !important;
+}
+
+.button-wrapper{
+    width:40%;
+}
+
+.label-category{
+    display: flex;
+    flex-direction: row;
 }
