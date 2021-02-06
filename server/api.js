@@ -149,7 +149,6 @@ router.get("/images", (req,res) => {
 ////message things
 
 const nodemailer = require("nodemailer"),
-  creds = require("../config"),
   cors = require("cors");
 
 

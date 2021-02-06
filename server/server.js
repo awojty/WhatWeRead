@@ -94,7 +94,7 @@ app.use((err, req, res, next) => {
 
 //sending emai
 const nodemailer = require("nodemailer");
-const creds = require("../config");
+
 const cors = require("cors");
 
 app.use(cors());
