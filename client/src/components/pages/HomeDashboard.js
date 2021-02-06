@@ -182,12 +182,6 @@ changeAddBookcase = () => {
 
             })}
 
-      
-
-        
-        
-
-
 
         
         </div>
