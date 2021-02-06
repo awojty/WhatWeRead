@@ -25,6 +25,7 @@ import TeamPage from "./pages/TeamPage";
 import BookclubsDashboard from "./pages/BookclubsDashboard.js";
 
 import ImagePage from "./pages/ImagePage";
+import ContactPage from "./pages/ContactPage.js";
 
 /**
  * Define the "App" component as a class.
@@ -105,6 +106,16 @@ class App extends Component {
 
         <BookclubCreate
               path="/addbookclub"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+              name={this.state.name}
+                        
+          />
+
+
+<ContactPage
+              path="/contactme"
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
               userId={this.state.userId}
@@ -196,6 +207,14 @@ class App extends Component {
         return(          
         <>
           <Router>
+          <ContactPage
+              path="/contactme"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+              name={this.state.name}
+                        
+          />
           <TeamPage
               path="/team"
               handleLogin={this.handleLogin}

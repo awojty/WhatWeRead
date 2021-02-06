@@ -16,6 +16,9 @@ const path = require("path"); // provide utilities for working with file and dir
 const api = require("./api");
 const auth = require("./auth");
 
+
+
+
 // socket stuff
 const socketManager = require("./server-socket");
 
@@ -24,6 +27,11 @@ const socketManager = require("./server-socket");
 const mongoConnectionURL = process.env.ATLAS_SRV;
 // TODO change database name to the name you chose
 const databaseName = "book-club";
+
+
+
+///////////////
+
 
 // connect to mongodb
 mongoose
@@ -81,6 +89,30 @@ app.use((err, req, res, next) => {
     message: err.message,
   });
 });
+
+//////////////////
+
+//sending emai
+const nodemailer = require("nodemailer");
+const creds = require("../config");
+const cors = require("cors");
+
+app.use(cors());
+
+/////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.use("/uploads", express.static("uploads"));
 // hardcode port to 3000 for now
 const port = process.env.PORT || 3000;

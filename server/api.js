@@ -146,6 +146,65 @@ router.get("/images", (req,res) => {
 /////////////
 
 
+////message things
+
+const nodemailer = require("nodemailer"),
+  creds = require("../config"),
+  cors = require("cors");
+
+
+
+
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: creds.USER,
+    pass: creds.PASS
+  },
+  tls: {
+    rejectUnauthorized: false
+}
+});
+
+transporter.verify((err, success) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Successfully signed into Gmail account");
+  }
+});
+
+router.post("/send", (req, res) => {
+  const { name } = req.body;
+  const { message } = req.body;
+
+  var mail = {
+    from: name,
+    to: "whatwereadwebdeveloper@gmail.com",
+    subject: "Feedback From The Blog",
+    html: `${message}` + "<br><br>Kindly,<br>" + `${name}`
+  };
+
+  console.log("mail", mail)
+
+  console.log("send message");
+
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      console.log(err);
+      console.log("error");
+      res.json({ msg: "err" });
+    } else {
+      console.log("success");
+      res.json({ msg: "suc" });
+    }
+  });
+});
+
+
+//////////////////////////////////////////////
+
+
 router.post("/createbook", (req,res) => {
 
   const newBook = new Book({

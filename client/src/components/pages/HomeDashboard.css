@@ -1,12 +1,13 @@
 .homedashboard-container {
     min-height: 100vh;
-    width:300vw;
+    width:fit-content;
     padding:0;
     margin:0;
     background-image: url("../Assets/background.png");
     background-position: center center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: 100% 100%;
+    flex-wrap: nowrap;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -16,7 +17,8 @@
 .bookcases-container{
   display:flex;
   flex-direction:row;
-  width:auto;
+  flex-wrap: nowrap;
+  width:fit-content;
   margin-bottom:100px;
   
 }

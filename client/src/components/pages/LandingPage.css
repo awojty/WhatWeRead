@@ -1,14 +1,10 @@
 .starter-container{
-    
-
     display: flex;
     -webkit-box-align: center;
     flex-direction: row;
     align-items: center;
     -webkit-box-pack: justify;
     justify-content: space-between;
-  
-
 }
 
 .starter-image{
@@ -77,8 +73,18 @@ a:hover, a:visited, a:link, a:active
 }
 
 .navigation-item{
-    padding:5px;
+    padding:10px;
     font-weight: 200;
+    font-size: 100%;
+    font-weight: bolder;
+    text-decoration: none;
+
+
+}
+
+.navigation-item:hover{
+    background-color: rgb(184, 207, 232);
+    color: azure;
 }
 
 
