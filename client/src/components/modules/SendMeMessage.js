@@ -38,6 +38,8 @@ class SendMeMessage extends Component {
     sendMessage = (e) =>{
         let name = "aoskpa";
         let message="message";
+
+        console.log("attempt to send a message");
         Axios({
             method: "POST",
             url: "http://localhost:5000/api/send",
@@ -48,9 +50,11 @@ class SendMeMessage extends Component {
           }).then(res => {
             if (res.data.msg === "suc") {
               console.log("Email has been sent");
-              setNewMessage(initialInputState);
+              //setNewMessage(initialInputState);
+              return;
             } else {
               console.log("FAILURE");
+              return;
             }
           });
 
