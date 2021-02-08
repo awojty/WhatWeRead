@@ -39,18 +39,18 @@ class LandingPage extends Component {
 
   goToAbout = () => {
     navigate("/about");
-
-
-
   }
 
 
   goToStart = () => {
     navigate("/start");
+  }
 
-
+  goToContact = () => {
+    navigate("/contactme");
 
   }
+
 
   render() {
     return (
@@ -59,8 +59,9 @@ class LandingPage extends Component {
                 <div className="navigation-section">
                 {this.props.userId ?(<a className="navigation-item" onClick={this.goToStart}>Profile</a>):null}
                 {/* <a className="navigation-item" href="google.com" >Feedback</a> */}
-                <div className="navigation-item" onclick="location.href='https://stackoverflow.com/questions/29128746/keep-anchor-tag-from-changing-styles';"><div> Feedback </div></div> 
+                <div className="navigation-item" onClick="location.href='https://stackoverflow.com/questions/29128746/keep-anchor-tag-from-changing-styles';"><div> Feedback </div></div> 
                 <a className="navigation-item" onClick={this.goToTeam}>Team</a>
+                <a className="navigation-item" onClick={this.goToContact}>Contact</a>
                 </div>
 
     <div className="starter-container">

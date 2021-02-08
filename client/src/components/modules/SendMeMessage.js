@@ -92,7 +92,8 @@ class SendMeMessage extends Component {
                 placeholder="What's on your mind?"
               ></input>
             </div>
-            <button onClick={this.sendMessage}>Submit</button>
+            {/* <button onClick={this.sendMessage}>Submit</button> */}
+            <div>this form does nothing yet</div>
           </form>
 
 

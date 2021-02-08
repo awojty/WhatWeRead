@@ -5,7 +5,7 @@ import GoogleLogin, { GoogleLogout } from "react-google-login";
 import { navigate, Router, Redirect, Route } from "@reach/router";
 
 import "../../utilities.css";
-import "../pages/LandingPage.css";
+import "./CustomNavBar.css";
 
 import starterImage from "../Assets/landing_page_photo.png";
 
@@ -56,12 +56,12 @@ class CustomNavBar extends Component {
     return (
 
 
-                <div className="navigation-section">
-                <a className="navigation-item" onClick={this.goToStart}>Profile</a>
+                <div className="nav-section">
+                <a className="nav-item" onClick={this.goToStart}>Profile</a>
                 {/* <a className="navigation-item" href="google.com" >Feedback</a> */}
-                <div className="navigation-item" 
+                <div className="nav-item" 
                 ><div> Feedback </div></div> 
-        <a className="navigation-item" onClick={this.goToTeam}>Team</a>
+        <a className="nav-item" onClick={this.goToTeam}>Team</a>
     </div>
 
     
