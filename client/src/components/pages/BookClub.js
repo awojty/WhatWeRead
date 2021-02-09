@@ -37,7 +37,9 @@ class BookClub extends Component {
         seen:false,
         owner:false,
         image:defaultImage,
-        description:"none"
+        description:"none",
+        members:[],
+        memberNames:[],
        
 
     };
@@ -183,12 +185,52 @@ class BookClub extends Component {
                 topics:notes,
             });
 
+        });
+
+        this.getMembers().then((members)=>{
+
+          console.log("members", members);
+
+          let memberNames=this.extractMemberNames(members);
+
+          console.log("NAMES", memberNames)
+
+          this.setState({
+            members:members,
+            memberNames:memberNames,
+        });
+
+
         })
       }
       
       
       );
   
+        }
+
+        extractMemberNames = (array) => {
+
+          console.log(array);
+
+          let answer=[];
+          if(array.length>0){
+            answer =[array[0].bookclub_owner_name];
+
+            console.log(answer);
+
+
+          }
+   
+
+
+          for(let i=0; i<array.length;i++){
+            answer.push(array[i].member_name);
+            console.log(answer);
+
+          }
+
+          return answer;
         }
   
   
@@ -235,6 +277,19 @@ submitTopic = () => {
 
 }
 
+getMembers = async () => {
+
+  let body = {
+    bookclub_id: this.props.bookclub_id,
+
+  }
+
+  console.log(this.props);
+  let friends = await get("/api/getbookclubmembers", body);
+  return friends;
+
+}
+
 startPopUp = () => {
     console.log("statr popou");
 
@@ -262,8 +317,8 @@ togglePop = () => {
             <p className="u-bold">{this.state.book_id}</p>
             </div>
             </div> */}
-            <SideBar image={this.state.image} title={this.state.bookclub_title} description={this.state.description}/>
-            <div className="stuff-container">
+            <SideBar image={this.state.image} title={this.state.bookclub_title} description={this.state.description} members={this.state.memberNames}/>
+            <div className="stuff-container"> 
             {this.state.startNew && (
               <div>
                   <p>Put the titel of the discussion</p>
@@ -296,7 +351,7 @@ togglePop = () => {
 
           
         </div>
-        {this.state.seen ? <InviteBookclubPopUp toggle={this.togglePop} userId={this.props.userId}/> : null}
+        {this.state.seen ? <InviteBookclubPopUp toggle={this.togglePop} userId={this.props.userId} bookclub_id={this.props.bookclub_id}/> : null}
         </div>
       
 

@@ -186,6 +186,8 @@ class PersonalPage extends Component {
   getBookclubInvites = async () => {
     const body = { user: this.props.userId };
     const goalObjs = await get("/api/viewbookclubrequests", body);
+
+    console.log("i got thos book invites", goalObjs);
     return goalObjs;
   };
 
@@ -343,7 +345,7 @@ goToAddBookclubs =() =>{
         <div className="app-homedashboard">
         {/* <div className="spacer"></div> */}
   
-      <ProfileNavBar/>
+      <ProfileNavBar name={this.props.name} respondFriend={this.respondFriend}/>
 
             <div className="personal-container">
 

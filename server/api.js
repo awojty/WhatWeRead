@@ -477,17 +477,22 @@ router.post("/respondbookclubinvite", (req, res) => {
   if (!req.user) {
     res.send("not logged in");
   } else {
+
+    console.log(req.body);
+
+    const accept = req.body.accepted;
+
     const query = {
       _id: req.body._id,
 
-      user_id: req.body.user_id, // id of the person who sent the invitation
-      friend_id: req.user._id, // id of the perosn who responded
+      // user_id: req.body.user_id, // id of the person who sent the invitation
+      // friend_id: req.user._id, // id of the perosn who responded
       responded:false
 
     };
     BookclubMember.findOne(query).then(
       (friend) => {
-        friend.accepted = req.body.accepted;
+        friend.accepted = accept;
         friend.responded = true;
         console.log("console log posted");
 
@@ -591,7 +596,7 @@ router.get("/getbookclubsyoubelong", (req,res)=>{
 
     console.log("userId", body);
 
-    Bookclub.find(body).then((bookclub)=>{
+    BookclubMember.find(body).then((bookclub)=>{
 
       console.log("get bookclubs", bookclub);
 
@@ -841,10 +846,15 @@ router.get("/viewbookclubrequests", (req, res) => {
 router.get("/getbookclubmembers", (req, res) => {
 
   let body = {
-    bookclub_id:req.body.bookclub_id,
+    bookclub_id:req.query.bookclub_id,
     accepted:true, 
     responded:true
   };
+
+  console.log(req.body);
+  console.log(req.query);
+
+  console.log("body to get members", body);
 
   BookclubMember.find(body).then((members)=>{
     res.send(members);

@@ -62,22 +62,36 @@ canInvite = (members, invites, friends) => {
   let membersSchema = invites.concat(members);
   let canInvite = [];
 
-  console.log(membersSchema);
-  console.log(friends);
+  console.log("things showing up", membersSchema);
+  console.log("friends",friends);
+  console.log("invited", invites);
+  console.log("members", members);
 
   for(let i=0;i<friends.length;i++){
 
+    let cancelled = false;
+
     for(let j=0;j<membersSchema.length;j++){
+
+      console.log("entered member loopo");
       if(membersSchema[j].member_id === friends[i].friend_id || membersSchema[j].member_id === friends[i].friend_requester_id){
         //given frined is already a member  or a mameber object in the DB
+        cancelled=true;
         break;
       }
-      if(j===membersSchema.length-1){
-        canInvite.push(friends[i]);
-      }
+      // if(j===membersSchema.length-1){
+      //   canInvite.push(friends[i]);
+      // }
+
+    };
+
+    if(!cancelled){
+      canInvite.push(friends[i]);
 
     }
-  }
+  };
+
+  console.log("can invite", canInvite);
 
   return canInvite;
 
@@ -153,11 +167,20 @@ sendInvitations = async () => {
         let body={
             member_name:friend_name,
             member_id:friend_id,
-            bookclub_id: this.state.bookclub_id,
+            bookclub_id: this.props.bookclub_id,
 
         };
 
-        if (this.state.friendsDict[friend_id].marked===false){
+        let id = this.state.friends[i]._id;
+
+        console.log("id", id);
+
+
+        console.log(this.state.friendsDict);
+        console.log(this.state.friendsDict[id]);
+
+
+        if (this.state.friendsDict[id].marked===false){
           //if you didnt marke the merson, dont send an invitation 
           continue;
         }else{
@@ -165,7 +188,7 @@ sendInvitations = async () => {
             post("/api/invitetobookclub", body).then(
                 async (response)=>{
 
-                console.log("errrir", response);
+                console.log("resopne", response);
                 
                     // if everything is fine resiolve to true or for example your body content
                     return Promise.resolve(true);}
@@ -189,7 +212,7 @@ sendInvitations = async () => {
         }
         console.log("BLBOB");
 
-        navigate("/start");
+        this.props.toggle();
     });
    
 

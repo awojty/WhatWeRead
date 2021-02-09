@@ -159,12 +159,14 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
+            name={this.state.name}
           />
           <CreateBook
             path="/addbook"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
+            name={this.state.name}
           />
 
         <HomeDashboard
@@ -172,6 +174,7 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
+            name={this.state.name}
           />
 
           <CreateBookcase
@@ -179,6 +182,7 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
+            name={this.state.name}
           />
 
           <CommunityPage
@@ -186,6 +190,7 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
+            name={this.state.name}
           />
 
         <BookclubsDashboard
@@ -193,12 +198,14 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
+            name={this.state.name}
           />   
         <BookClub
             path="/bookclub/:bookclub_id"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
+            name={this.state.name}
           />  
           <NotFound handleLogin={this.handleLogin} handleLogout={this.handleLogout} default />
         </Router>

@@ -135,7 +135,7 @@ changeAddBookcase = () => {
       {/* <NavBar/> */}
       <div className="spacer"></div>
       <div className="fixed-container">
-      <ProfileNavBar/>
+      <ProfileNavBar name={this.props.name}/>
       </div>
     
 

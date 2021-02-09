@@ -49,6 +49,25 @@ class ProfileNavBar extends Component {
 
   componentDidMount() {
     // remember -- api calls go here!
+
+    this.getInvites().then((Invitations)=>{
+      console.log("friend invitations i got", Invitations);
+      this.setState({
+       invitations:Invitations,
+       countFriendInvitations:Invitations.length,
+      
+      })
+    });
+
+    this.getBookclubInvites().then((bookInvitations)=>{
+      this.setState({
+        bookInvitations:bookInvitations,
+        countBookInvitations:bookInvitations.length,
+        
+      })
+    });
+
+
   }
 
 
@@ -77,43 +96,28 @@ class ProfileNavBar extends Component {
   }
 
   handleBookclubClick =() => {
-    if (!this.state.bookclubClicked){
-      this.getBookclubInvites().then((bookInvitations)=>{
-        this.setState({
-          bookInvitations:bookInvitations,
-          countBookInvitations:bookInvitations.length,
-          bookclubClicked:!this.state.bookclubClicked
-        })
-      })
-        }else{
+
 
           this.setState({
             
             bookclubClicked:!this.state.bookclubClicked
           });
 
-        }
+        
 
     }
 
 
     handleFriendClick =() => {
-      if (!this.state.friendClicked){
-        this.getInvites().then((bookInvitations)=>{
-          this.setState({
-           invitations:bookInvitations,
-           countFriendInvitations:bookInvitations.length,
-           friendClicked:!this.state.friendClicked
-          })
-        })
-          }else{
+
+
   
             this.setState({
               
               friendClicked:!this.state.friendClicked
             });
   
-          }
+          
   
       }
   
@@ -140,22 +144,136 @@ class ProfileNavBar extends Component {
 
     console.log("showing item of request bookclub");
     return (
-      <div className="invitation-item">
-        <p>{bookclubMember.bookclub_owner_name} wants to you to join their {bookclubMember.bookclub_title} bookclub.</p>
-        <button >Acccept</button>
-        <button >Deny</button>
+      <div className="list-item">
+        <p>{bookclubMember.bookclub_owner_name} wants to you to join {bookclubMember.bookclub_title} bookclub.</p>
+        <button onClick={() => this.respondBookclub(bookclubMember.user_id, true, index, bookclubMember._id)}>Acccept</button>
+        <button onClick={() => this.respondBookclub(bookclubMember.user_id, false, index, bookclubMember._id)}>Deny</button>
+
       </div>
     );
   }
 
-  friendRequestItem = (invitation, index) => {
+  friendRequestItem = (friend, index) => {
+    let name;
+    let _id;
+    console.log("props", this.props);
+
+    console.log("friend", friend);
+    console.log("my name", this.props.name);
+    if (friend.friend_name === this.props.name) {
+      name = friend.friend_requester_name;
+      _id = friend.user_id;
+    } else {
+      name = friend.friend_name;
+      _id = friend.friend_id
+    };
+
     return (
-      <div className="invitation-item">
-        <p>{invitation.friend_requester_name} wants to be friends.</p>
-        {/* <button onClick={() => this.respondFriend(invitation.user_id, true, index, invitation._id)}>Acccept</button>
-        <button onClick={() => this.respondFriend(invitation.user_id, false, index, invitation._id)}>Deny</button> */}
+      <div className="list-item">
+        <p>{name} wants to be friends.</p>
+        <button onClick={() => this.respondFriend(friend.user_id, true, index, friend._id)}>Acccept</button>
+        <button onClick={() => this.respondFriend(friend.user_id, false, index, friend._id)}>Deny</button>
       </div>
     );
+  }
+
+  removeAtIndex = (array, index) => {
+
+    console.log(index);
+
+    let newArray = [...array]
+
+
+    if (index > -1) {
+
+      newArray.splice(index, 1);
+      console.log(newArray);
+
+      return newArray;
+    }
+
+
+
+  }
+
+
+  respondFriend = (user_id, accepted, index, _id) => {
+
+    if(this.props.respondFriend !==undefined){
+      this.props.respondFriend(user_id, accepted, index, _id);
+
+      let count = this.removeAtIndex(this.state.invitations, index);
+      this.setState({
+        invitations: count,
+        countFriendInvitations:count.length,
+      });
+     
+      
+    }else{
+      console.log("outside fo id");
+
+      const body = {
+        _id: _id,
+        accepted: accepted,
+        user_id: user_id,
+      };
+  
+      if (accepted === true) {
+  
+        post("/api/respondfriend", body).then(
+  
+          this.setState({
+            invitations: this.removeAtIndex(this.state.invitations, index)
+          })
+        );
+      } else {
+  
+        const query = {
+          _id: _id,
+          user_id: user_id,
+        };
+        post("/api/deletefriend", query).then(
+          
+          this.setState({
+            invitations: this.removeAtIndex(this.state.invitations, index)
+          })
+  
+        );
+      }
+    }
+
+
+  }
+
+  respondBookclub = (user_id, accepted, index, _id) => {
+
+    const body = {
+      _id: _id,
+      accepted: accepted,
+      member_id: user_id,
+    };
+
+    if (accepted === true) {
+
+      post("/api/respondbookclubinvite", body).then(
+
+        this.setState({
+          bookclubInvites: this.removeAtIndex(this.state.bookclubInvites, index)
+        })
+      );
+    } else {
+
+      const query = {
+        _id: _id,
+        member_id: user_id,
+      };
+      post("/api/deletebookmember", query).then(
+        this.setState({
+          bookclubInvites: this.removeAtIndex(this.state.bookclubInvites, index)
+        })
+
+      );
+    }
   }
 
   bookclubInvitationContent = () => {
@@ -184,16 +302,18 @@ class ProfileNavBar extends Component {
 
   friendInvitationContent = () => {
 
-    if (this.state.bookInvitations.length === 0) {
+    if (this.state.invitations.length === 0) {
 
       return (
         <div className="list-container-navbar">
-          <p>It looks like you don't have any bookclub invitations yet!</p>
-          <p>Click to create your own bookclub.</p>
+          <p>It looks like you don't have any friend invitations yet!</p>
+          
         </div>
       );
 
     } else {
+
+      console.log("dtste", this.state);
       return (
 
         <div className="list-container-navbar">

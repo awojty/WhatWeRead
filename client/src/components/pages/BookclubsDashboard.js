@@ -47,7 +47,7 @@ class PersonalPage extends Component {
       
     return (
       <div className = "createnew-wrapper">
-        <p>{bookclub.book_title}</p>
+        <p>{bookclub.bookclub_title}</p>
       <div className="entry-container" onClick={()=>this.goToBookclub(bookclub._id)}>
 
       </div>
@@ -69,14 +69,59 @@ class PersonalPage extends Component {
   };
 
 
+  getBookclubsMember = async () => {
+    //get bookclubs you belong to but you are not the owner of
+    const body = { user_id: this.props.userId };
+    const goalObjs = await get("/api/getbookclubsyoubelong", body);
+
+    console.log("i belogn to", goalObjs);
+    return goalObjs;
+  };
+
+
+  getClubInfo = async (id) =>{
+
+    const body = { _id: id };
+    const goalObjs = await get("/api/getbookclub", body);
+
+    console.log("i belogn to", goalObjs);
+    return goalObjs;
+
+
+  }
+
+
+
 
    componentDidMount() {
     this.getBookclubs().then((goalObjs) => {
+      this.setState({
+        bookclubs: goalObjs,
+      });
+
+      console.log(goalObjs);
+
+      this.getBookclubsMember().then((memberClub) =>{
+        console.log("i belong to those clubs", memberClub);
+        
+        for(let i=0; i<memberClub.length; i++){
+          console.log("hello ", i);
+
+          this.getClubInfo(memberClub[i].bookclub_id).then((club)=>{
+
+            console.log("get actual club", club);
+            this.setState({
+              bookclubs: goalObjs.concat(club),
+            });
+
+          });
+
+        }
+
+      })
 
         console.log("INV" + goalObjs);
-        this.setState({
-          bookclubs: goalObjs,
-        });
+
       });
         }
   
@@ -111,7 +156,7 @@ goToNewBookclub =() =>{
     return (
         <div className="app">
                 <div className="fixed-container">
-      <ProfileNavBar/>
+      <ProfileNavBar name={this.props.name}/>
       </div>
          
 

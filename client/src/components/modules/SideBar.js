@@ -72,10 +72,11 @@ class SideBar extends Component {
             <h4>Owner</h4>
           <div className="description"> {this.props.description}</div>
           <h2>Members</h2>
-          <div>Memebr</div>
-          <div>Memebr</div>
-          <div>Memebr</div>
-          <div>Memebr</div>
+          {this.props.members.map((name)=>{
+            return(  <div>{name}</div>);
+          })}
+        
+
         </div>
       
         
