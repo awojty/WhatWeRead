@@ -11,6 +11,7 @@ import { navigate } from "@reach/router";
 import NavBar from "../modules/NavBar";
 import "./BookclubsDashboard.css";
 import AddBookcasePopUp from "../modules/AddBookcasePopUp";
+import ProfileNavBar from "../modules/ProfileNavBar";
 
 
 
@@ -129,30 +130,13 @@ changeAddBookcase = () => {
 
 
     return (
-      // <div className="homedashboard-container">
-      //   {/* <div className="top-container"></div> */}
-      //   <div className="stuff-container">
-      //     {/* <div className="bookcases-container"> */}
-              
-      //         {this.state.bookcases.map((bookcase, i )=>{
-      //           return(<Bookcase key = {i} _id={bookcase.user_id} title={bookcase.title}/>);
-      //         })}
-             
-              
-      //     {/* </div> */}
-      //     <div className="paintings-container">
-      //       <button className="painting-wrapper" onClick={this.goToAddBook}>Add new book</button>
-      //       <button className="painting-wrapper" onClick={this.goToAddShelf}>Add new bookcase</button>
-      //       <button className="painting-wrapper" onClick={this.goToAddFriends}>Add friends</button>
-      //     </div>
-      //     <button className="door-component"></button>
-      //     </div>
-      //     <div className="floor-container"></div>
-          
-      // </div>
 
       <div className="app">
-      <NavBar/>
+      {/* <NavBar/> */}
+      <div className="spacer"></div>
+      <div className="fixed-container">
+      <ProfileNavBar/>
+      </div>
     
 
         <div className="bookclubs-container">
