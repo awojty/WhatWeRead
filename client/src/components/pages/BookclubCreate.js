@@ -19,6 +19,7 @@ import placer from "../Assets/landing_page_photo.png";
 import SearchInternetPopUp from "../modules/SearchInternetPopUp";
 import "./BookclubCreate.css";
 import Button from '@material-ui/core/Button';
+import ProfileNavBar from "../modules/ProfileNavBar.js";
 
 
 
@@ -336,7 +337,7 @@ class BookclubCreate extends Component {
 
     return (
       <div>
-        <NavBar/>
+        <ProfileNavBar/>
         <p className="section-name intro">Fill in the fields to create a bookclub. If you want to create one for a specific book, select "Book bookclub". If you want to create bookclub for a specific topic, select "Topic bookclub".
           When you create a bookclub for a book, you have an option to fill in the fields automatically by selecting a book from the internet. To allow other members to add their friends to the bookclub, tick the Allow the last checkbox. Otherwise, only the creator of the bookclub can do that.
         </p>

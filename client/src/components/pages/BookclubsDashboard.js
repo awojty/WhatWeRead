@@ -14,6 +14,9 @@ import "./BookclubsDashboard.css";
 import { navigate, Router, Redirect, Route } from "@reach/router";
 
 
+import ProfileNavBar from "../modules/ProfileNavBar";
+
+
 
 import { get, post } from "../../utilities.js";
 
@@ -107,7 +110,9 @@ goToNewBookclub =() =>{
     console.log(this.state);
     return (
         <div className="app">
-          <NavBar/>
+                <div className="fixed-container">
+      <ProfileNavBar/>
+      </div>
          
 
 

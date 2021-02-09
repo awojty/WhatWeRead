@@ -20,8 +20,9 @@
 .book-button{
     min-height:140px;
     background-image: url("../Assets/personal_page_icon.png");
-    max-height:56%;
+    max-height:300px;
     color: white;
+    max-width: 150px;
     font-weight: bolder;
     background-position: center center;
     background-repeat: no-repeat;
@@ -38,16 +39,33 @@
 .books-section{
     display: flex;
     flex-direction: column;
-    width:150px;
+    width:20%;
     justify-content: space-around;
+    margin-right: 50px;
+    margin-left: 50px;
 }
 
 .personal-container{
     display: flex;
     flex-direction: row;
-}
+    width: 100%;}
 
-.column{
+
+
+.app-homedashboard{
+    width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: white;
+   
+  
+  }
+
+.notification-container{
+    width:80%;
+    display: flex;
+    flex-direction: column;
+    padding-right: 150px;
+    padding-left: 150px;
 }

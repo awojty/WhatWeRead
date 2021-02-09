@@ -38,7 +38,10 @@ class ProfileNavBar extends Component {
     this.state = {
       bookInvitations:[],
       invitations:[],
-      bookclubClicked:false
+      bookclubClicked:false,
+     friendClicked:false,
+      countBookInvitations:0,
+      countFriendInvitations:0,
 
 
     };
@@ -78,6 +81,7 @@ class ProfileNavBar extends Component {
       this.getBookclubInvites().then((bookInvitations)=>{
         this.setState({
           bookInvitations:bookInvitations,
+          countBookInvitations:bookInvitations.length,
           bookclubClicked:!this.state.bookclubClicked
         })
       })
@@ -91,6 +95,27 @@ class ProfileNavBar extends Component {
         }
 
     }
+
+
+    handleFriendClick =() => {
+      if (!this.state.friendClicked){
+        this.getInvites().then((bookInvitations)=>{
+          this.setState({
+           invitations:bookInvitations,
+           countFriendInvitations:bookInvitations.length,
+           friendClicked:!this.state.friendClicked
+          })
+        })
+          }else{
+  
+            this.setState({
+              
+              friendClicked:!this.state.friendClicked
+            });
+  
+          }
+  
+      }
   
 
   getInvites = async () => {
@@ -109,13 +134,6 @@ class ProfileNavBar extends Component {
       console.log("asjkdkas");
   }
 
-  showBookclubInvitations =() => {
-    this.getBookclubInvites().then((bookInvitations)=>{
-      this.setState({
-        bookInvitations:bookInvitations
-      })
-    })
-  }
 
 
   bookclubRequestItem = (bookclubMember, index) => {
@@ -130,12 +148,22 @@ class ProfileNavBar extends Component {
     );
   }
 
+  friendRequestItem = (invitation, index) => {
+    return (
+      <div className="invitation-item">
+        <p>{invitation.friend_requester_name} wants to be friends.</p>
+        {/* <button onClick={() => this.respondFriend(invitation.user_id, true, index, invitation._id)}>Acccept</button>
+        <button onClick={() => this.respondFriend(invitation.user_id, false, index, invitation._id)}>Deny</button> */}
+      </div>
+    );
+  }
+
   bookclubInvitationContent = () => {
 
     if (this.state.bookInvitations.length === 0) {
 
       return (
-        <div className="popup-container">
+        <div className="list-container-navbar">
           <p>It looks like you don't have any bookclub invitations yet!</p>
           <p>Click to create your own bookclub.</p>
         </div>
@@ -144,7 +172,7 @@ class ProfileNavBar extends Component {
     } else {
       return (
 
-        <div className="popup-container">
+        <div className="list-container-navbar">
         {this.state.bookInvitations.map((invitation, index) => this.bookclubRequestItem(invitation, index))}
       </div>)
    
@@ -154,24 +182,60 @@ class ProfileNavBar extends Component {
 
   }
 
+  friendInvitationContent = () => {
+
+    if (this.state.bookInvitations.length === 0) {
+
+      return (
+        <div className="list-container-navbar">
+          <p>It looks like you don't have any bookclub invitations yet!</p>
+          <p>Click to create your own bookclub.</p>
+        </div>
+      );
+
+    } else {
+      return (
+
+        <div className="list-container-navbar">
+        {this.state.invitations.map((invitation, index) => this.friendRequestItem(invitation, index))}
+      </div>)
+   
+        
+    }
+
+
+  }
+
+
+  navigateToStart = () => {
+    navigate("/start");
+  }
+
+  goToHome = () => {
+    navigate("/");
+  }
+
   render() {
     return (
         <div className="personal-navbar-container">
-<div onClick={this.testing}>
-  
+          <div className="navbar-title" onClick={this.goToHome}> WhatWeRead</div>
+
+
+      <div onClick={this.handleFriendClick} className="personal-navbar-item">
         <img src={addFriends}></img>
-        <PopUpList/>
+        {this.state.countFriendInvitations!==0 ? <div className="notify-circle"></div>:null}
+        {this.state.bookclubClicked ? this.friendInvitationContent() : null}
             </div>
 
-            <div onClick={this.handleBookclubClick}>
+            <div onClick={this.handleBookclubClick} className="personal-navbar-item">
         <img src={bookclub}></img>
-       {this.state.bookclubClicked ? this.bookclubInvitationContent() : null}
-            </div>
-            <div onClick={this.testing}>
-        <img src={notification}></img>
+        {this.state.countBookInvitations!==0 ? <div className="notify-circle"></div>:null}
+       {this.state.friendClicked ? this.bookclubInvitationContent() : null}
+    
             </div>
 
-            <div onClick={this.testing}>
+
+            <div onClick={this.navigateToStart} className="personal-navbar-item">
         <img src={home}></img>
             </div>
 

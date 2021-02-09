@@ -14,11 +14,14 @@ import { navigate, Router, Redirect, Route } from "@reach/router";
 
 import "./PersonalPage.css";
 
+import "./HomeDashboard.css";
+
 import { get, post } from "../../utilities.js";
 
 
 import "./CreateBook.css";
 import NavBar from "../modules/NavBar.js";
+import ProfileNavBar from "../modules/ProfileNavBar.js";
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "480244722799-u3pjrlh16hioq4pe3bsb873pc5nrc8pe.apps.googleusercontent.com";
 
@@ -337,47 +340,48 @@ goToAddBookclubs =() =>{
   render() {
     console.log(this.state);
     return (
-        <div className="App-Container">
-        <NavBar/>
-            <div className="personal-container">
-            
+        <div className="app-homedashboard">
+        {/* <div className="spacer"></div> */}
+  
+      <ProfileNavBar/>
 
-              <div className="column">
-            
+            <div className="personal-container">
+
+        <div className="notification-container">
             <div className="friend-requests-container">
             <h2 className="u-bold">Friend requests</h2>
                 {this.friendRequestsContent(this.state.invitations)}
-
             </div>
-         
           
             <div className="friend-requests-container">
             <h2 className="u-bold">Friends</h2>
                 {this.friendsContent(this.state.friendList)}
             </div>
-
           
             <div className="friend-requests-container">
               <h2 className="u-bold"> Bookclub invitations</h2>
                 {this.bookclubInvitationContent(this.state.bookclubInvites)}
-
-            </div>
             </div>
 
-          
+            </div>
 
+            
             <div className="books-section">
             <button className="book-button" onClick={this.goToLibrary}>Go To Library</button>
             <button className="book-button bookclubs blue-text" onClick={this.goToBookclubs}>Go To Bookclubs</button>
             <button className="book-button" onClick={this.goToAddBookclubs}>Create Bookclubs</button>
             <button className="book-button" onClick={()=> navigate("/community")}>Go To Community</button>
-
-
-
-            </div>
             </div>
 
-              </div>
+            </div>
+
+          
+
+
+
+      </div>
+
+            
               
     );
   }
