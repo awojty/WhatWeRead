@@ -224,13 +224,13 @@ class ProfileNavBar extends Component {
       <div onClick={this.handleFriendClick} className="personal-navbar-item">
         <img src={addFriends}></img>
         {this.state.countFriendInvitations!==0 ? <div className="notify-circle"></div>:null}
-        {this.state.bookclubClicked ? this.friendInvitationContent() : null}
+        {this.state.friendClicked ? this.friendInvitationContent() : null}
             </div>
 
             <div onClick={this.handleBookclubClick} className="personal-navbar-item">
         <img src={bookclub}></img>
         {this.state.countBookInvitations!==0 ? <div className="notify-circle"></div>:null}
-       {this.state.friendClicked ? this.bookclubInvitationContent() : null}
+       {this.state.bookclubClicked ? this.bookclubInvitationContent() : null}
     
             </div>
 
