@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import React, { Component } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import { navigate, Router, Redirect, Route } from "@reach/router";
+import OnOutsiceClick from 'react-outclick';
 
 import "../../utilities.css";
 import "./CustomNavBar.css";
@@ -334,10 +335,29 @@ class ProfileNavBar extends Component {
     navigate("/");
   }
 
+  closeAllLists = () => {
+
+    this.setState({
+            
+      bookclubClicked:false,
+      friendClicked:false,
+    });
+
+  }
+
   render() {
+
+
+   
+ 
+  
     return (
-        <div className="personal-navbar-container">
+      <OnOutsiceClick
+      onOutsideClick={() => this.closeAllLists()}>
+
+        <div className="personal-navbar-container" onBlur={()=>console.log("blur")}>
           <div className="navbar-title" onClick={this.goToHome}> WhatWeRead</div>
+
 
 
 
@@ -367,6 +387,8 @@ class ProfileNavBar extends Component {
 
 
         </div>
+
+        </OnOutsiceClick>
 
     
     );

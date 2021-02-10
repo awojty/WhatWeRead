@@ -18,6 +18,8 @@ import "./HomeDashboard.css";
 
 import { get, post } from "../../utilities.js";
 
+import OnOutsiceClick from 'react-outclick';
+
 
 import "./CreateBook.css";
 import NavBar from "../modules/NavBar.js";
@@ -346,6 +348,10 @@ goToAddBookclubs =() =>{
         {/* <div className="spacer"></div> */}
   
       <ProfileNavBar name={this.props.name} respondFriend={this.respondFriend}/>
+      <OnOutsiceClick
+        onOutsideClick={() => console.log("AAAAAAAAAAAAAAAAA")}>
+       
+      </OnOutsiceClick>
 
             <div className="personal-container">
 
