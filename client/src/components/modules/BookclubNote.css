@@ -9,4 +9,39 @@
 
 .note-title{
     word-break: break-all;
+    display: flex;
+    flex-direction: row;
+    font-size:smaller;
+    justify-content: space-between;
+    padding-bottom: 0 !important;
+    word-break: break-all;
 }
+
+.note-top-wrapper{
+    display: flex;
+    flex-direction: row;
+    font-size:smaller;
+    justify-content: space-between;
+    padding-bottom: 0 !important;
+}
+
+.date-text{
+    font-size: smaller;
+}
+
+.title-note-style{
+    margin: 0 !important;
+    padding: 0 !important;
+    word-break: break-all;
+
+
+}
+
+.author-note-style{
+    margin: 0 !important;
+    padding: 0 !important;
+    word-break: break-all;
+
+
+}
+

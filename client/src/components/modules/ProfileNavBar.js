@@ -211,7 +211,6 @@ class ProfileNavBar extends Component {
       
     }else{
       console.log("outside fo id");
-
       const body = {
         _id: _id,
         accepted: accepted,
@@ -341,22 +340,29 @@ class ProfileNavBar extends Component {
           <div className="navbar-title" onClick={this.goToHome}> WhatWeRead</div>
 
 
+
+<div>
       <div onClick={this.handleFriendClick} className="personal-navbar-item">
         <img src={addFriends}></img>
         {this.state.countFriendInvitations!==0 ? <div className="notify-circle"></div>:null}
-        {this.state.friendClicked ? this.friendInvitationContent() : null}
+            </div>
+            {this.state.friendClicked ? this.friendInvitationContent() : null}
+
             </div>
 
-            <div onClick={this.handleBookclubClick} className="personal-navbar-item">
+            <div>
+              <div onClick={this.handleBookclubClick} className="personal-navbar-item">
         <img src={bookclub}></img>
         {this.state.countBookInvitations!==0 ? <div className="notify-circle"></div>:null}
-       {this.state.bookclubClicked ? this.bookclubInvitationContent() : null}
     
             </div>
+            {this.state.bookclubClicked ? this.bookclubInvitationContent() : null}
+            </div>
 
-
+            <div>
             <div onClick={this.navigateToStart} className="personal-navbar-item">
         <img src={home}></img>
+            </div>
             </div>
 
 

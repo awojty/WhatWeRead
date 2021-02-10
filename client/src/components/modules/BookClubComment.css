@@ -1,5 +1,26 @@
 .comment{
     background-color: white;
     margin:5px;
+    padding:2px;
     
+}
+
+.comment-title{
+    display: flex;
+    flex-direction: row;
+    font-size:smaller;
+    justify-content: space-between;
+    padding-bottom: 0 !important;
+}
+
+.smaller-padding{
+    padding-bottom: 0 !important;
+}
+
+.comment-content{
+    display: flex;
+    flex-direction: row;
+    font-size:smaller;
+    justify-content: space-between;
+    word-break: break-all;
 }

@@ -1,14 +1,20 @@
 .bookclub-app{
-    background-image: url("../Assets/wood.jpg");
-    background-repeat: no-repeat;
+    background-color: rgb(212, 237, 255);
+    background-repeat: repeat;
     background-size: 100% 100%;
     width: 100vw;
-    height: 100vh;
+    height: fit-content;
     display: flex;
     flex-direction: row;
 
 
 }
+
+.topic-container{
+    height:200px;
+
+}
+
 
 .stuff-container{
 
@@ -42,4 +48,5 @@
     flex-wrap: wrap;
     width: 100%;
     height: fit-content;
+    background-color: rgb(212, 237, 255);
 }

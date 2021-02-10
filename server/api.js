@@ -645,13 +645,16 @@ router.post("/addnote", (req,res)=>{
     res.send("not logged in");
   } else {
 
+    let date = new Date();
+
     
     const newBookclubNote = new BookclubNote({
-      bookclub_title: req.body.book_title,
+      
       bookclub_id: req.body.bookclub_id,
       user_id: req.user._id, // id of the perosn that will become a friend
       user_name: req.user.name,
-      content: req.body.content    
+      content: req.body.content,
+      date:date,    
     });
 
     newBookclubNote.save().then(
@@ -724,6 +727,7 @@ router.post("/addbookclubcomment", (req,res)=>{
   } else {
 
     console.log("reqbody", req.body);
+    let date = new Date();
 
     
     const newBookclubComment = new BookclubComment({
@@ -732,6 +736,7 @@ router.post("/addbookclubcomment", (req,res)=>{
       user_name: req.user.name,
       content: req.body.content,  //text of the comment  
       note: req.body.note_id,
+      date:date,
     });
 
     console.log("c", newBookclubComment);

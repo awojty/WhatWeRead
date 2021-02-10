@@ -69,8 +69,8 @@ class SideBar extends Component {
         <div className="sidebar-container">
             <img src={this.props.image} className="bookclub-image"></img>
             <h2>{this.props.title}</h2>
-            <h4>Owner</h4>
-          <div className="description"> {this.props.description}</div>
+            {this.props.owner? <h4>You're an Owner</h4>: <h4>You're a Member</h4>}
+          <div className="description"> Description: {this.props.description}</div>
           <h2>Members</h2>
           {this.props.members.map((name)=>{
             return(  <div>{name}</div>);

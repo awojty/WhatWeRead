@@ -40,6 +40,7 @@ class BookClub extends Component {
         description:"none",
         members:[],
         memberNames:[],
+        topicSubmitted:false,
        
 
     };
@@ -250,10 +251,12 @@ goToAddBookclubs =() =>{
 startNewThread = () => {
     this.setState({
         startNew: !this.state.startNew,
+        topicSubmitted:!this.state.topicSubmitted
     });
 }
 
 handleChangeTopic = (event) => {
+  console.log(this.state);
     this.setState({
         topic:event.target.value
     })
@@ -262,16 +265,19 @@ handleChangeTopic = (event) => {
 submitTopic = () => {
     let body = {
 
-        bookclub_title: "title", //to do - should be taken form teh inpout
+        // bookclub_title: "title", //to do - should be taken form teh inpout
         bookclub_id: this.props.bookclub_id,
-        content: "conten" // todo - should be taken form the input   
+        content: this.state.topic // todo - should be taken form the input   
 };
+
+console.log("im sending this", body);
 
     post("/api/addnote", body).then((topic)=>{
         console.log("topuc", topic);
         const newArray = this.state.topics.concat([topic]);
         this.setState({
             topics:newArray,
+            topicSubmitted:!this.state.topicSubmitted,
         })
     });
 
@@ -305,6 +311,12 @@ togglePop = () => {
     });
   };
 
+  togglePop = () => {
+    this.setState({
+      startNew: !this.state.startNew
+    });
+  };
+
   render() {
     console.log(this.state);
     return (
@@ -317,17 +329,25 @@ togglePop = () => {
             <p className="u-bold">{this.state.book_id}</p>
             </div>
             </div> */}
-            <SideBar image={this.state.image} title={this.state.bookclub_title} description={this.state.description} members={this.state.memberNames}/>
+            <SideBar owner={this.state.owner} image={this.state.image} title={this.state.bookclub_title} description={this.state.description} members={this.state.memberNames}/>
             <div className="stuff-container"> 
             {this.state.startNew && (
-              <div>
-                  <p>Put the titel of the discussion</p>
-                <input
+              <div className="modal_content">
+                            <span className="close" onClick={this.togglePop}>
+              &times;
+            </span>
+                  <p>What do you want to discuss?</p>
+
+                <textarea                
                   value={this.state.topic}
-                  type="text"
+                  type="textarea"
                   onChange={this.handleChangeTopic}
-                />
+                  style={{ height: 100 }} 
+                  rows="4" cols="50"/>
                 <button onClick={this.submitTopic}>Add topic</button>
+                {this.state.topicSubmitted ? <p>Created!</p>:null}
+
+
               </div>)
 
             }
@@ -335,7 +355,7 @@ togglePop = () => {
             <div className="notes-container">
 
             {this.state.topics.map((topic, key)=>{
-                return(<BookclubNote note_id={topic._id}/>)
+                return(<BookclubNote date={topic.date} note_id={topic._id} content={topic.content} creator={topic.user_name}/>)
             })}
 
             </div>
