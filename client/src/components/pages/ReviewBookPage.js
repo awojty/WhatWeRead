@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 
-import { get } from "../../utilities";
+import { get, post } from "../../utilities";
 
 import Calendar from 'react-calendar'
+
+import { navigate } from "@reach/router";
 
 
 import ReactStars from "react-rating-stars-component";
@@ -33,6 +35,18 @@ class ReviewBookPage extends Component {
     }
   }
 
+  getBook = async () =>{
+      let body = {
+          book_id:this.props.book_id
+      }
+
+      console.log("this is body ", body);
+      let book = await get("/api/getbook", body);
+
+      console.log("i got a book", book);
+      return book; 
+
+  }
   componentDidMount(){
 
     console.log("book mount props", this.props);
@@ -42,12 +56,18 @@ class ReviewBookPage extends Component {
       book_id:this.props.book_id,
     });
 
-    let body = {
-      _id:this.props.book,
-    };
+    this.getBook().then((book)=>{
+        let aBook = book;
+        this.setState({
 
-    console.log("book book info", body);
+            color: aBook.color,
+            title: aBook.title,
+            author: aBook.author,
+            book_id: aBook._id,
+            image: aBook.image,
 
+        })
+    })
 
   }
 
@@ -57,7 +77,7 @@ class ReviewBookPage extends Component {
           review:e.target.value
 
       })
-  }
+  };
 
   onSubmit= () =>{
       let body = {
@@ -71,6 +91,11 @@ class ReviewBookPage extends Component {
       
      };
 
+     post("/api/reviewbook", body).then((res)=>{
+         console.log("rs",res);
+         navigate("/home");
+     })
+
   }
 
   ratingChange = (e) => {
@@ -83,6 +108,8 @@ class ReviewBookPage extends Component {
 
 
   render() {
+
+    console.log(this.state);
 
     return (
       <div>
@@ -102,12 +129,11 @@ class ReviewBookPage extends Component {
                 activeColor="#ffd700"
           
           />
-          <div>Select start date of reading</div>
+         <div>{this.state.author}</div>
+         <div>{this.state.title}</div>
+          <img src={this.state.image}></img>
+          <button onClick={this.onSubmit}>Submit</button>
 
-<Calendar />
-<div>Select end date of reading</div>
-
-<Calendar />
        
 
             

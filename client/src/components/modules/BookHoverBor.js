@@ -69,7 +69,7 @@ class BookHoverBox extends Component {
       </Link>
     );
 
-    const reviewUrl = "/reviewbook/" + this.props._id;
+    const reviewUrl = "/reviewbook/" + this.props.book_id;
 
     const reviewGoal = (
       <Link to={reviewUrl} className="navbar-text noselect hoverbox-text"

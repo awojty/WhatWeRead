@@ -192,6 +192,7 @@ toggleMoveBookcase = () => {
       toggleProgress={this.toggleProgress}
       handleBookClick={this.handleBookClick}
       toggleMoveBookcase={this.toggleMoveBookcase}
+      book_id={this.state.selected_id}
 
         title={this.state.selected_title} 
         _id={this.props._id}

@@ -354,6 +354,21 @@ router.post("/reviewbook", (req,res)=>{
 
 })
 
+router.get("/getbook", (req,res)=>{
+  let body={
+    user_id:req.user._id,
+    _id:req.query.book_id,
+  };
+
+  console.log("query to find books", body)
+
+  Book.findOne(body).then((book) => {
+    console.log("book  found", book);
+    res.send(book);
+  });
+
+})
+
 router.get("/getbooksforbookcase",(req,res)=>{
 
   let body={
