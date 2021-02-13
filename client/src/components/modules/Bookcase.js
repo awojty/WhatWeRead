@@ -120,7 +120,7 @@ class Bookcase extends Component {
       <div className="bookcase-container">
         
         {this.state.shelves.map((shelf)=>{
-          return( <Shelf books={shelf}></Shelf>)
+          return( <Shelf books={shelf} handleBookClick={this.props.handleBookClick}></Shelf>)
         })}
          
                   

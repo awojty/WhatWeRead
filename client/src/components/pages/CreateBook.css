@@ -1,12 +1,10 @@
 .book-rectangle{
-    width: 50px;
-    height:200px;
+    width: 60px;
+    height:180px;
     background-color: red;
     writing-mode: vertical-rl;
     text-orientation: mixed;
-    margin:20px;
-
-
+    margin:15px;
 }
 
 .bookadd-container{
@@ -38,4 +36,15 @@
     flex-direction: column;
     flex-grow: 1;
 
+}
+
+.images-section{
+    display: flex;
+    flex-direction: row;
+}
+
+.book-cover{
+    width:60%;
+    height:70%;
+    margin: 15px;
 }

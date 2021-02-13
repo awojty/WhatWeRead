@@ -10,6 +10,7 @@ const BookSchema = new mongoose.Schema({
   color:String,
   bookcase:String,
   start_date:Date,
+  image:String,
 
   
 });

@@ -207,6 +207,13 @@ class App extends Component {
             userId={this.state.userId}
             name={this.state.name}
           />  
+        <ReviewPageBook
+            path="/reviewbook/:book_id"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}
+            name={this.state.name}
+          /> 
           <NotFound handleLogin={this.handleLogin} handleLogout={this.handleLogout} default />
         </Router>
       </>)}else{

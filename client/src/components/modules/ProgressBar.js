@@ -12,7 +12,9 @@ class ProgressBar extends Component {
     }
   
     render() {
-      const fullLength = this.props.remaining + this.props.completed;
+
+      console.log("propsm in progrss bar", this.props);
+      const fullLength = this.props.total;
       const percentCompleted = Math.round(100*this.props.completed/fullLength);
       const percentBar = Math.min(100, percentCompleted);
 
@@ -46,7 +48,7 @@ class ProgressBar extends Component {
 
       return (
         <div className="progress-bar">
-          <div className={`filler${this.props.category === "duration" ? ' duration' : ''}`} style={{width: `${percentBar}%`}}></div>
+          <div className="filler" style={{width: `${percentBar}%`}}></div>
           {percentBar < 10 ? <GreyBarText>{percentCompleted +'%'}</GreyBarText> : <WhiteBarText>{percentCompleted +'%'}</WhiteBarText>}
         </div>
       );

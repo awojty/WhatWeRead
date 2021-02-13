@@ -59,7 +59,7 @@
 .list-container-navbar{
 
     position: relative;
-    z-index: 1000;
+    z-index: 10000;
     width: 150px;
     height: 300px;
     right: -20px;
@@ -72,6 +72,26 @@
     overflow-y: scroll;
 
 }
+
+
+.list-container-navbarA{
+
+    position: relative;
+    z-index: 10000;
+    width: 150px;
+    height: 150px;
+    right: -20px;
+
+    bottom: -100px;
+    background-color: rgb(197, 241, 238);
+    border: solid black;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+
+}
+
+
 
 
 

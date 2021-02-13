@@ -349,7 +349,7 @@ goToAddBookclubs =() =>{
   
       <ProfileNavBar name={this.props.name} respondFriend={this.respondFriend}/>
       <OnOutsiceClick
-        onOutsideClick={() => console.log("AAAAAAAAAAAAAAAAA")}>
+        onOutsideClick={() =>console.log("ads")}>
        
       </OnOutsiceClick>
 

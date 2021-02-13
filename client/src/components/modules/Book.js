@@ -47,6 +47,8 @@ class Book extends Component {
       completed_pages: this.props.book.completed_pages,
       remaining_pages: this.props.book.remaining_pages,
       color: this.props.book.color,
+      author:this.props.book.author,
+      image:this.props.book.image,
     });
 
     let body = {
@@ -73,13 +75,21 @@ class Book extends Component {
   }
 
   showHoverbox =()=>{
-    this.setState({
-      isClicked:!this.state.isClicked,
-    });
+    this.props.handleBookClick(
+      this.state.title,
+      this.state.color,
+      this.state.author,
+       this.state._id,
+       this.state.total_pages,
+       this.state.completed_pages,
+       this.state.image
+       );
   }
 
 
   render() {
+
+    console.log("this.props", this.props);
       let image = this.props.bookDirectory;
       let photo = "";
       if (image=="book1"){
@@ -92,7 +102,7 @@ class Book extends Component {
       <div>
        
         <div onClick={this.showHoverbox} className={`noselect book${this.state.isClicked ?  ' selected' : ''}`}  style={{"backgroundColor":this.state.color}}>{this.state.title}</div>
-        {this.state.isClicked && (
+        {/* {this.state.isClicked && (
               <div>
                 <BookHoverBox
                   title={this.props.title}
@@ -100,7 +110,7 @@ class Book extends Component {
 
                 />
               </div>
-            )}
+            )} */}
             
             
             

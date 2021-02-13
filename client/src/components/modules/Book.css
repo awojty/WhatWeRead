@@ -3,6 +3,7 @@
     height: 50px;
     writing-mode: vertical-rl;
     text-orientation: mixed;
+    z-index: 100;
 
   
   }

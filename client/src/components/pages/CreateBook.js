@@ -18,9 +18,11 @@ import SearchInternetPopUp from "../modules/SearchInternetPopUp";
 
 
 import { get, post } from "../../utilities.js";
+import exampleImg from "../Assets/home.png"
 
 
 import "./CreateBook.css";
+import ProfileNavBar from "../modules/ProfileNavBar.js";
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com";
 
@@ -39,7 +41,8 @@ class CreateBook extends Component {
         remaining_pages: 0,
         bookcases:[],
         bookcase:"Read",
-        searchInternet:false
+        searchInternet:false,
+        image:exampleImg,
     };
   }
 
@@ -51,7 +54,7 @@ class CreateBook extends Component {
   {
       return(
       
-      <div className="book-rectangle" style={{"backgroundColor":this.state.background}}>
+      <div className="book-rectangle" style={{"backgroundColor":this.state.background, "fontWeight":"bold"}}>
         {this.state.title}
       </div>)
 
@@ -77,6 +80,7 @@ class CreateBook extends Component {
     remaining_pages: Number(this.state.total_pages),
     color:this.state.background,
     bookcase:this.state.bookcase, 
+    image:this.state.image,
     
 
     };
@@ -132,6 +136,7 @@ class CreateBook extends Component {
       published:published,
       total_pages: pages,
       remaining_pages: pages,
+      image:image,
 
       author: author,
 
@@ -162,7 +167,7 @@ class CreateBook extends Component {
     console.log(this.state);
     return (
         <div className="App-Container">
-          <NavBar/>
+          <ProfileNavBar name={this.props.name} respondFriend={this.respondFriend}/>
 
           <div className="bookadd-container">
            
@@ -216,8 +221,11 @@ class CreateBook extends Component {
           </div>
 
           <div className="color-information">
+            <div className="images-section">
+            <img className="book-cover" src={this.state.image}></img>
 
           {this.showBookRectangle()}
+          </div>
         
 <h2>Pick the book color</h2>
         <CirclePicker 

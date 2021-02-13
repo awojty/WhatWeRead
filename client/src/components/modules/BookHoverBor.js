@@ -5,6 +5,10 @@ import { get, post } from "../../utilities.js";
 import "../pages/Skeleton.css";
 import "../../utilities.css";
 import "./BookHoverBox.css";
+import ReactStars from "react-rating-stars-component";
+
+import defImg from "../Assets/hello.png";
+import ProgressBar from "./ProgressBar";
 
 const GOOGLE_CLIENT_ID = "414432801514-87gso51893g2t24f4j957c3i68i71l65.apps.googleusercontent.com";
 
@@ -56,6 +60,7 @@ class BookHoverBox extends Component {
   }
 
   render() {
+    console.log("hoverbox props", this.props);
     const progressUrl =  "/updatebookprogress/"+ this.props._id;
 
     const progressGoal = (
@@ -115,7 +120,25 @@ class BookHoverBox extends Component {
 
     return (
       <>
-        <span className="hoverbox">{this.hoverbox(deleteConfirmButton, progressGoal, reviewGoal, deleteGoal, inviteGoal, movebookcaseGoal)}</span>
+        <div className="bookcase-hoverbox">
+        <span className="close" onClick={this.props.handleBookClick}>
+              &times;
+            </span>
+          {this.hoverbox(deleteConfirmButton, progressGoal, reviewGoal, deleteGoal, inviteGoal, movebookcaseGoal)}
+          <div>{this.props.title}</div>
+          <div>{this.props.author}</div>
+         <ProgressBar total={this.props.total_pages} completed={this.props.completed_pages}/>
+         <img className="book-cover-popup" src={this.props.image}></img>
+         <button onClick={()=>this.props.toggleProgress()}>Updateprogressbook</button>
+         <button onClick={()=>this.props.toggleMoveBookcase()}>Change bookcase</button>
+         <ReactStars
+    count={5}
+    ratingChanged={()=>console.log("rating")}
+    
+    size={24}
+    activeColor="#ffd700"
+  />,
+          </div>
       </>
     );
   }

@@ -72,7 +72,7 @@
 }
 
 .app{
-    width: 300vw;
+    width: fit-content;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -85,5 +85,5 @@
 .floor{
     background-color: var(--floor);
     height: 25vh;
-    width: 300vw;
+    width: 100%;
 }

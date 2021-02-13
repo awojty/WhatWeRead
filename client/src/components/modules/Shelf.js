@@ -47,7 +47,11 @@ class Shelf extends Component {
 
       <div className="shelf-container">
              {this.state.bookCovers.map((book) => (
-             <Book book={book}/>))}
+               <>
+             <Book book={book} handleBookClick={this.props.handleBookClick}/>
+            
+             </>
+             ))}
         
     </div>
 

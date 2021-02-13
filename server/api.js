@@ -216,6 +216,7 @@ router.post("/createbook", (req,res) => {
     remaining_pages: req.body.remaining_pages,
     color: req.body.color,
     bookcase: req.body.bookcase,
+    image:req.body.image,
   
 
   });
@@ -263,7 +264,7 @@ router.post("/invitefriend", (req, res) => {
 router.get("/getuserbooks", (req,res)=>{
 
   let body = {
-    user_id: req.query.user_id
+    user_id: req.user._id
 
   };
 
@@ -388,7 +389,7 @@ router.get("/getuserbookcases", (req,res)=>{
   //get a list of bookcases that a user owns
 
   let body = {
-    user_id: req.query.user_id
+    user_id: req.user._id
 
   };
 
@@ -926,18 +927,42 @@ router.get("/caninvite", (req, res) => {
 
 router.post("/updateprogress", (req,res)=>{
 
-  let body = {
+  let q = {
     _id: req.body.book_id,
-    user_id: req.body.user_id,
+    user_id: req.user._id,
 
 
   };
 
-  Book.findOne(body).then(
+  Book.findOne(q).then(
     (book) => {
+      console.log("this is a book", book);
 
      book.completed_pages = req.body.completed_pages;
     book.remaining_pages = req.body.remaining_pages;
+
+      book.save().then((book) => res.send(book));
+    });
+
+  
+})
+
+
+router.post("/movebookcase", (req,res)=>{
+
+  let q = {
+    _id: req.body.book_id,
+    user_id: req.user._id,
+
+
+  };
+
+  Book.findOne(q).then(
+    (book) => {
+      console.log("this is a book", book);
+
+     book.bookcase = req.body.bookcase;
+    
 
       book.save().then((book) => res.send(book));
     });
