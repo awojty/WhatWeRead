@@ -27,6 +27,8 @@ import BookclubsDashboard from "./pages/BookclubsDashboard.js";
 import ImagePage from "./pages/ImagePage";
 import ContactPage from "./pages/ContactPage.js";
 
+import ReviewBookPage from "./pages/ReviewBookPage"
+
 /**
  * Define the "App" component as a class.
  */
@@ -207,7 +209,7 @@ class App extends Component {
             userId={this.state.userId}
             name={this.state.name}
           />  
-        <ReviewPageBook
+        <ReviewBookPage
             path="/reviewbook/:book_id"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
