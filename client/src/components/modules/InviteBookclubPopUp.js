@@ -4,7 +4,7 @@ import { get, post } from "../../utilities.js";
 import "./InviteBookclubPopUp.css";
 import { navigate, Router, Redirect, Route } from "@reach/router";
 import friend from "../../../../server/models/friend.js";
-
+import { Link } from "@reach/router";
 
 class InviteBookclubPopUp extends Component {
 
@@ -236,47 +236,68 @@ render() {
 
     console.log("HELLO");
     console.log("thisstate", this.state);
+    if( this.state.canInvite.length>0){
+      return (
 
-    return (
         
-          <div className="modal_content">
-            <span className="close" onClick={this.handleClick}>
-              &times;
-            </span>
+        <div className="bookcase-hoverbox">
+          <span className="close" onClick={()=>this.props.toggle()}>
+            &times;
+          </span>
+          <div>
+            <h3>Select friends to invite</h3>
+
             <div>
-              <h3>Select friends to invite</h3>
-              <label>
-                Name:
-                <input type="text" name="name" />
-              </label>
-              <br />
-              <input type="submit" />
-              <div>
-            
-           
-           {
-             this.state.canInvite.map((item, index) => (
-               <div>
-                 <label>
-                   <input
-                     type="checkbox"
-                     value={item.friend_name}
-                     onChange={()=>this.handleChange(item._id)}
-                   /> {this.determineDisplayName(item.user_id, item.friend_requester_name, item.friend_name)}
-                 </label>
-               </div>
-             ))
-           }
-            
-           <br/>
-           <input type="submit" value="Submit" />
-           <button onClick={this.sendInvitations}>invite</button>
-       
-        </div>
-            </div>
+         
+         {
+           this.state.canInvite.map((item, index) => (
+             <div>
+               <label>
+                 <input
+                   type="checkbox"
+                   value={item.friend_name}
+                   onChange={()=>this.handleChange(item._id)}
+                 /> {this.determineDisplayName(item.user_id, item.friend_requester_name, item.friend_name)}
+               </label>
+             </div>
+           ))
+         }
+          
+
+         <button onClick={this.sendInvitations}>invite</button>
+     
+      </div>
           </div>
+        </div>
+      
+    );
+    }
+    else{
+      return (
+
         
-      );
+        <div className="bookcase-hoverbox">
+          <span className="close" onClick={this.handleClick}>
+            &times;
+          </span>
+          <div>
+            <h3>Select friends to invite</h3>
+
+            <div>
+         
+            <div>It looks like you either invited all your freinds or you don't have any friends yet. Click <Link to="/community" className="goals-link">here</Link> to add new friends.</div>
+          
+
+         <button onClick={this.sendInvitations}>invite</button>
+     
+      </div>
+          </div>
+        </div>
+      
+    );
+    }
+
+    
     }
  
 }

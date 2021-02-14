@@ -18,29 +18,55 @@ class BookHoverBox extends Component {
     // Initialize Default State
     this.state = {
       showDeleteConfirm: false,
+      
     };
   }
 
 
-  hoverbox = (deleteConfirmButton, progressGoal, reviewGoal, deleteGoal,inviteGoal,movebookcaseGoal) => {
+  hoverbox = (deleteConfirmButton,  reviewGoal, deleteGoal) => {
       if (this.state.showDeleteConfirm) {
         return deleteConfirmButton;
       } else {
         return (
           <>
-            {progressGoal}
+           
             {reviewGoal}
-            {inviteGoal}
+          
             {deleteGoal}
-            {movebookcaseGoal}
+           
 
           </>
         );
       }
     };
 
+    
+
+    onPressInvite = () => {
+
+    }
+
   componentDidMount() {
     // remember -- api calls go here!
+
+    //this.setState({stars:this.props.stars})
+
+    let body = {
+      book_id:this.props.book_id
+    }
+
+    console.log("body", body);
+
+    
+
+    get("/api/getareview", body).then((res)=>{
+
+      console.log("res", res)
+      this.setState({
+        stars:res.stars,
+        review:res.content
+      });
+    })
   }
 
   showDeleteConfirmButton = () => {
@@ -48,9 +74,12 @@ class BookHoverBox extends Component {
   }
 
   handleDelete = () => {
-    const body = { _id: this.props._id };
+    console.log("DELETE Hover props", this.props);
+    const body = { book_id: this.props.book_id };
     post("/api/deletebook", body).then((goal) => {
-        this.setState({ deleted: true }, this.props.handleDelete);
+        console.log("goal", goal);
+        this.props.handleDelete();
+
       });
 
   };
@@ -59,15 +88,31 @@ class BookHoverBox extends Component {
     this.setState({ showDeleteConfirm: false, });
   }
 
+  returnStars = () =>{
+    console.log("returnStars", this.state.stars);
+    return(<ReactStars
+      count={5}
+      edit={false}
+      
+      value={this.state.stars}
+    
+      
+      size={24}
+      activeColor="#ffd700"
+    
+    />)
+  }
+
   render() {
     console.log("hoverbox props", this.props);
+    console.log("state", this.state);
+
+    const Star= this.props.stars;
+
+    console.log("star in hove", Star);
     const progressUrl =  "/updatebookprogress/"+ this.props._id;
 
-    const progressGoal = (
-      <Link to={progressUrl} className="navbar-text noselect hoverbox-text">
-        Update Progress
-      </Link>
-    );
+
 
     const reviewUrl = "/reviewbook/" + this.props.book_id;
 
@@ -79,36 +124,16 @@ class BookHoverBox extends Component {
     );
 
 
-    const inviteUrl = "/invitefriendtobook/" + this.props._id;
-
-    const inviteGoal = (
-      <Link to={inviteUrl} className="navbar-text noselect hoverbox-text"
-      >
-        Invite friend to read 
-      </Link>
-    );
-
-    const movebookcaseUrl = "/invitefriendtobook/" + this.props._id;
-
-    const movebookcaseGoal = (
-      <Link to={movebookcaseUrl} className="navbar-text noselect hoverbox-text"
-      >
-        Move to another bookcase 
-      </Link>
-    );
-
-
     const deleteConfirmButton = (
       <>
         <p className="u-red u-margin-top-0 u-margin-bottom-0">
           Are you sure? Deleting a book is irreversible.
         </p>
-        <a className="u-bold navbar-text hoverbox-text noselect" onClick={this.cancelDelete}>
+        <a className="u-bold navbar-text hoverbox-text noselect" onClick={()=>console.log("cance")}>
           Cancel
         </a>
-        <Link to="/goals" className="u-bold navbar-text noselect delete-text" onClick={this.handleDelete}>
-          Delete
-        </Link>
+        <a  className="u-bold navbar-text noselect delete-text"  href="javascript:window.location.reload(true)" onClick={this.handleDelete}>Delete</a>
+
       </>
     );
 
@@ -121,23 +146,19 @@ class BookHoverBox extends Component {
     return (
       <>
         <div className="bookcase-hoverbox">
-        <span className="close" onClick={this.props.handleBookClick}>
+        <span className="close" onClick={this.props.handleCloseClick}>
               &times;
             </span>
-          {this.hoverbox(deleteConfirmButton, progressGoal, reviewGoal, deleteGoal, inviteGoal, movebookcaseGoal)}
+          {this.hoverbox(deleteConfirmButton, reviewGoal, deleteGoal)}
           <div>{this.props.title}</div>
           <div>{this.props.author}</div>
          <ProgressBar total={this.props.total_pages} completed={this.props.completed_pages}/>
          <img className="book-cover-popup" src={this.props.image}></img>
-         <button onClick={()=>this.props.toggleProgress()}>Updateprogressbook</button>
+         <button onClick={()=>this.props.toggleProgress()}>Update progress</button>
          <button onClick={()=>this.props.toggleMoveBookcase()}>Change bookcase</button>
-         <ReactStars
-    count={5}
-    ratingChanged={()=>console.log("rating")}
-    
-    size={24}
-    activeColor="#ffd700"
-  />,
+         <button onClick={this.handleDelete}>Delete</button>
+         <button onClick={()=>this.props.onFinishBook()}>Finish Book</button>
+         {this.state.stars!==undefined ? this.returnStars():null}
           </div>
       </>
     );

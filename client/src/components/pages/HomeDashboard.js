@@ -19,8 +19,9 @@ import defImg from "../Assets/hello.png";
 import UpdateProgressPopUp from "../modules/UpdateProgressPopUp";
 import MoveBookcasePopUp from "../modules/MoveBookcasePopUp";
 
+import Confetti from 'react-confetti';
 
-
+import FinishBookPopUp from "../modules/FinishBookPopUp";
 
 /**
  * Component to render a single comment
@@ -49,6 +50,10 @@ class HomeDashboard extends Component {
       image:defImg,
       showUpdateProgressPopUp:false,
       showMoveBookcasePopUp:false,
+      stars:0,
+      review:"",
+      selected_delete:false,
+      startConfetti:false,
   }
 
 }
@@ -134,7 +139,20 @@ changeAddBookcase = () => {
   });
 }
 
+handleCloseClick = () => {
+
+  this.setState({
+
+    showBookPopUp:!this.state.showBookPopUp,
+
+
+  });
+
+}
+
+
 handleBookClick = (title,color,author,id, total_pages, completed_pages, image) => {
+  console.log("GGGGGGGGGGGGggg")
 
   this.setState({
     selected_title: title,
@@ -146,6 +164,20 @@ handleBookClick = (title,color,author,id, total_pages, completed_pages, image) =
     completed_pages: completed_pages,
     image:image
 
+  });
+
+
+  
+
+  let body = {
+    book_id:id
+  }
+
+  get("/api/getareview", body).then((res)=>{
+    this.setState({
+      stars:res.stars,
+      review:res.content
+    });
   })
 }
 
@@ -168,6 +200,83 @@ toggleMoveBookcase = () => {
   })
 }
 
+handleDeleteOnHome = () =>{
+
+  console.log("BOOKTITLE home", this.state)
+  this.setState({
+
+    selected_delete:true,
+
+  });
+  navigate("/home");
+}
+
+showConfetti = () => {
+  return (
+    <>
+        <Confetti></Confetti>
+            <FinishBookPopUp
+            
+      onFinishBook={this.onFinishBook}
+      handleCloseClick={this.handleCloseClick}
+      selected_delete_bool={this.state.selected_delete}
+      handleDelete= {this.handleDeleteOnHome}
+      stars={this.state.stars}
+      toggleProgress={this.toggleProgress}
+      handleBookClick={this.handleBookClick}
+      toggleMoveBookcase={this.toggleMoveBookcase}
+      book_id={this.state.selected_id}
+      selected_id={this.state.selected_id}
+
+        title={this.state.selected_title} 
+        _id={this.props._id}
+        author = {this.state.selected_author}
+        completed_pages={this.state.completed_pages}
+        total_pages={this.state.total_pages}
+        image={this.state.image}
+            
+            />
+
+    </>
+  );
+}
+
+onFinishBook = () => {
+  this.setState({
+    startConfetti:true,
+    showBookPopUp:false,
+  });
+
+  this.submitFinalProgress();
+}
+
+submitFinalProgress = () => {
+  let body = {
+    book_id : this.state.selected_id,
+    
+    completed_pages: this.state.total_pages, 
+    remaining_pages: 0,
+  };
+
+  console.log("body to send progress  quant goal is ");
+      console.log(body);
+
+
+
+
+  post("/api/updateprogress", body).then((response) =>{
+
+    console.log("returned after progress update is", response);
+
+
+
+    
+
+    
+  });
+
+};
+
 
 
 
@@ -179,20 +288,28 @@ toggleMoveBookcase = () => {
 
     console.log("ststae", this.state.bookcases);
 
-    console.log("stateHome", this.state);
+    console.log("BOOKTITLE home render", this.state);
+    console.log("stars", this.state.stars);
 
 
     return (
 
       <div className="app">
-      {/* <NavBar/> */}
+        {this.state.startConfetti ? this.showConfetti() : null}
+      
       <div className="spacer"></div>
       {this.state.showBookPopUp ? 
       <BookHoverBox 
+      onFinishBook={this.onFinishBook}
+      handleCloseClick={this.handleCloseClick}
+      selected_delete_bool={this.state.selected_delete}
+      handleDelete= {this.handleDeleteOnHome}
+      stars={this.state.stars}
       toggleProgress={this.toggleProgress}
       handleBookClick={this.handleBookClick}
       toggleMoveBookcase={this.toggleMoveBookcase}
       book_id={this.state.selected_id}
+      selected_id={this.state.selected_id}
 
         title={this.state.selected_title} 
         _id={this.props._id}
@@ -204,6 +321,7 @@ toggleMoveBookcase = () => {
 
 {this.state.showUpdateProgressPopUp ? 
       <UpdateProgressPopUp
+      handleCloseClick={this.handleCloseClick}
       toggleProgress={this.toggleProgress}
       handleBookClick={this.handleBookClick}
         title={this.state.selected_title} 
@@ -217,6 +335,7 @@ toggleMoveBookcase = () => {
 
 {this.state.showMoveBookcasePopUp ? 
       <MoveBookcasePopUp
+      handleCloseClick={this.handleCloseClick}
       toggleProgress={this.toggleMoveBookcase}
       toggleMoveBookcase={this.toggleMoveBookcase}
       handleBookClick={this.handleBookClick}
@@ -241,7 +360,14 @@ toggleMoveBookcase = () => {
 
        
             {this.state.bookcases.slice(0,2).map((bookcase,i)=>{
-         return(<Bookcase key = {i} _id={bookcase.user_id} title={bookcase.title} handleBookClick={this.handleBookClick}/>);
+         return(<Bookcase
+           key = {i} 
+           _id={bookcase.user_id}
+            title={bookcase.title}
+             handleBookClick={this.handleBookClick}
+             selected_delete_bool={this.state.selected_delete}
+             selected_delete_id={this.state.selected_id}
+             />);
 
             })}
 
@@ -260,7 +386,13 @@ toggleMoveBookcase = () => {
       </div>
 
       {this.state.bookcases.slice(2).map((bookcase,i)=>{
-         return(<Bookcase key = {i} _id={bookcase.user_id} title={bookcase.title} handleBookClick={this.handleBookClick}/>);
+         return(<Bookcase key ={i}
+           _id={bookcase.user_id} 
+          title={bookcase.title}
+           handleBookClick={this.handleBookClick} 
+          selected_delete_id={this.state.selected_id}
+          selected_delete_bool={this.state.selected_delete}
+          />);
 
             })}
 

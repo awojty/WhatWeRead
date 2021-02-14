@@ -6,6 +6,7 @@
     height: fit-content;
     display: flex;
     flex-direction: row;
+    align-items: stretch;
 
 
 }

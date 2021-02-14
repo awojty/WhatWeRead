@@ -251,7 +251,8 @@ goToAddBookclubs =() =>{
 startNewThread = () => {
     this.setState({
         startNew: !this.state.startNew,
-        topicSubmitted:!this.state.topicSubmitted
+        topicSubmitted:false,
+        topic:""
     });
 }
 
@@ -305,6 +306,8 @@ startPopUp = () => {
 }
 
 
+
+
 togglePop = () => {
     this.setState({
       seen: !this.state.seen
@@ -332,7 +335,7 @@ togglePop = () => {
             <SideBar owner={this.state.owner} image={this.state.image} title={this.state.bookclub_title} description={this.state.description} members={this.state.memberNames}/>
             <div className="stuff-container"> 
             {this.state.startNew && (
-              <div className="modal_content">
+              <div className="bookcase-hoverbox">
                             <span className="close" onClick={this.togglePop}>
               &times;
             </span>
@@ -371,7 +374,7 @@ togglePop = () => {
 
           
         </div>
-        {this.state.seen ? <InviteBookclubPopUp toggle={this.togglePop} userId={this.props.userId} bookclub_id={this.props.bookclub_id}/> : null}
+        {this.state.seen ? <InviteBookclubPopUp toggle={this.startPopUp} userId={this.props.userId} bookclub_id={this.props.bookclub_id}/> : null}
         </div>
       
 

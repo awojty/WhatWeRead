@@ -32,7 +32,7 @@ class Bookcase extends Component {
       user_id:this.props._id,
       title:this.props.title,
     };
-    console.log("bookcase body" ,body);
+    console.log("BOOKTITLE" ,body);
 
     get("/api/getbooksforbookcase", body).then((book)=>{
       console.log("books for a given case", book);
@@ -85,16 +85,47 @@ class Bookcase extends Component {
     return shelves;
   }
 
+  getBooks = () => {
+
+    let body ={
+      user_id:this.props._id,
+      title:this.props.title,
+    };
+    console.log("bookcase body" ,body);
+
+    get("/api/getbooksforbookcase", body).then((book)=>{
+      console.log("books for a given case", book);
+
+      const ids = this.createIdsList(book);
+      const Shelves = this.divideArrayIntoShelfs(book);
+      console.log("shelvsd", Shelves)
+      this.setState({
+        Books: book,
+        bookIds: ids,
+        shelves: Shelves,
+      });
+    })
+
+
+  }
+
 
 
 
 
   
   render() {
+    console.log("props in the bookcase", this.props);
+    // if(this.props.selected_delete_bool){
+    //   console.log("im gettign books");
+    //   this.getBooks();
+    // }
+
+
 
     
 
-    console.log("bookcase state", this.state);
+    //console.log("BOOKTI bookcase state", this.state);
 
 
     console.log("bookcas books state", this.state.bookIds);
@@ -120,7 +151,12 @@ class Bookcase extends Component {
       <div className="bookcase-container">
         
         {this.state.shelves.map((shelf)=>{
-          return( <Shelf books={shelf} handleBookClick={this.props.handleBookClick}></Shelf>)
+          return( <Shelf 
+            books={shelf} 
+            handleBookClick={this.props.handleBookClick}
+            selected_delete_id={this.props.selected_delete_id}
+            selected_delete_bool={this.props.selected_delete_bool}
+            ></Shelf>)
         })}
          
                   

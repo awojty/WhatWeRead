@@ -48,7 +48,13 @@ class Shelf extends Component {
       <div className="shelf-container">
              {this.state.bookCovers.map((book) => (
                <>
-             <Book book={book} handleBookClick={this.props.handleBookClick}/>
+             <Book 
+             book={book} 
+             handleBookClick={this.props.handleBookClick}
+             selected_delete_id={this.props.selected_delete_id}
+             selected_delete_bool={this.props.selected_delete_bool}
+ 
+             />
             
              </>
              ))}

@@ -150,6 +150,7 @@ router.get("/images", (req,res) => {
 
 const nodemailer = require("nodemailer"),
   cors = require("cors");
+const review = require("./models/review");
 
 
 
@@ -287,9 +288,17 @@ router.post("/deletebook", (req,res)=>{
     return res.send("not logged in");
   } else {
     const query = 
-    {_id: req.query.book_id};
+    {_id: req.body.book_id};
    
-    Book.deleteOne(query).then((book) => res.send(book));
+    Book.deleteOne(query).then((book) => 
+    
+    {console.log(book);
+      
+      res.send(book);
+    
+    }
+    
+    );
   }
 
 
@@ -352,6 +361,18 @@ router.post("/reviewbook", (req,res)=>{
 }
 
 
+});
+
+router.get("/getareview", (req,res)=>{
+
+  let body = {
+    book_id:req.query.book_id
+
+  }
+
+  Review.findOne(body).then((review)=>{
+    res.send(review);
+  })
 })
 
 router.get("/getbook", (req,res)=>{

@@ -88,8 +88,9 @@ class Book extends Component {
 
 
   render() {
+    console.log("BOOKTITLE book", this.state);
 
-    console.log("this.props", this.props);
+    console.log("bookprops", this.props);
       let image = this.props.bookDirectory;
       let photo = "";
       if (image=="book1"){
@@ -98,24 +99,29 @@ class Book extends Component {
           photo=book2;
       }
       console.log(this.state);
-    return (
-      <div>
-       
-        <div onClick={this.showHoverbox} className={`noselect book${this.state.isClicked ?  ' selected' : ''}`}  style={{"backgroundColor":this.state.color}}>{this.state.title}</div>
-        {/* {this.state.isClicked && (
-              <div>
-                <BookHoverBox
-                  title={this.props.title}
-                  _id={this.props._id}
+      console.log(this.props);
+      if(this.props.selected_delete_bool===true && this.props.selected_delete_id===this.state._id){
 
-                />
-              </div>
-            )} */}
-            
-            
-            
-      </div>
-        )};
+        console.log("IM NOT SHOWING");
+        return null;
+      }else{
+        return (
+          <div>
+           
+            <div onClick={this.showHoverbox} 
+            className={`noselect book${this.state.isClicked ?  ' selected' : ''}`}  
+            style={{"backgroundColor":this.state.color}}>{this.state.title}
+            </div>
+ 
+          </div>
+            )
+
+
+      }
+
+      
+      
+      };
         
         
     
