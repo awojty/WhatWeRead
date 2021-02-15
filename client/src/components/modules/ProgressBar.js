@@ -47,7 +47,7 @@ class ProgressBar extends Component {
       `
 
       return (
-        <div className="progress-bar">
+        <div className="progress-bar" style={{"width":this.props.width}}>
           <div className="filler" style={{width: `${percentBar}%`}}></div>
           {percentBar < 10 ? <GreyBarText>{percentCompleted +'%'}</GreyBarText> : <WhiteBarText>{percentCompleted +'%'}</WhiteBarText>}
         </div>

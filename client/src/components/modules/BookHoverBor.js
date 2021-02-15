@@ -28,14 +28,14 @@ class BookHoverBox extends Component {
         return deleteConfirmButton;
       } else {
         return (
-          <>
+          <div>
            
             {reviewGoal}
           
             {deleteGoal}
            
 
-          </>
+          </div>
         );
       }
     };
@@ -71,6 +71,10 @@ class BookHoverBox extends Component {
 
   showDeleteConfirmButton = () => {
     this.setState({ showDeleteConfirm: true, });
+  }
+
+  hideDeleteConfirmButton = () => {
+    this.setState({ showDeleteConfirm: false, });
   }
 
   handleDelete = () => {
@@ -117,10 +121,12 @@ class BookHoverBox extends Component {
     const reviewUrl = "/reviewbook/" + this.props.book_id;
 
     const reviewGoal = (
+      <div>
       <Link to={reviewUrl} className="navbar-text noselect hoverbox-text"
       >
         Review book
       </Link>
+      </div>
     );
 
 
@@ -129,7 +135,7 @@ class BookHoverBox extends Component {
         <p className="u-red u-margin-top-0 u-margin-bottom-0">
           Are you sure? Deleting a book is irreversible.
         </p>
-        <a className="u-bold navbar-text hoverbox-text noselect" onClick={()=>console.log("cance")}>
+        <a className="u-bold navbar-text hoverbox-text noselect" onClick={this.hideDeleteConfirmButton}>
           Cancel
         </a>
         <a  className="u-bold navbar-text noselect delete-text"  href="javascript:window.location.reload(true)" onClick={this.handleDelete}>Delete</a>
@@ -149,16 +155,39 @@ class BookHoverBox extends Component {
         <span className="close" onClick={this.props.handleCloseClick}>
               &times;
             </span>
-          {this.hoverbox(deleteConfirmButton, reviewGoal, deleteGoal)}
-          <div>{this.props.title}</div>
-          <div>{this.props.author}</div>
-         <ProgressBar total={this.props.total_pages} completed={this.props.completed_pages}/>
-         <img className="book-cover-popup" src={this.props.image}></img>
-         <button onClick={()=>this.props.toggleProgress()}>Update progress</button>
-         <button onClick={()=>this.props.toggleMoveBookcase()}>Change bookcase</button>
-         <button onClick={this.handleDelete}>Delete</button>
-         <button onClick={()=>this.props.onFinishBook()}>Finish Book</button>
-         {this.state.stars!==undefined ? this.returnStars():null}
+            <div className="popup-divider">
+              <div className="book-info-section">
+                <div className="name-section">
+                  <div className="title-section u-bold">Author </div>
+                  <div className="title-section">{this.props.author}</div>
+                  </div>
+
+                  <div className="name-section">
+                  <div className="title-section u-bold">Title </div>
+                  <div className="title-section ">{this.props.title}</div>
+                  </div>
+              
+               
+              <ProgressBar width="250px" total={this.props.total_pages} completed={this.props.completed_pages}/>
+              <img className="book-cover-popup" src={this.props.image}></img>
+              {this.state.stars!==undefined ? this.returnStars():null}
+
+
+
+              </div>
+
+              <div className="function-section">
+
+              {this.hoverbox(deleteConfirmButton, reviewGoal, deleteGoal)}
+              <button onClick={()=>this.props.toggleProgress()}>Update progress</button>
+              <button onClick={()=>this.props.toggleMoveBookcase()}>Change bookcase</button>
+              <button onClick={this.handleDelete}>Delete</button>
+              <button onClick={()=>this.props.onFinishBook()}>Finish Book</button>
+
+              </div>
+
+            </div>
+
           </div>
       </>
     );

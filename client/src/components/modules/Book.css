@@ -1,9 +1,17 @@
 .book {
     width: 20px;
-    height: 50px;
+    height: 70px;
+
+    text-overflow: ellipsis;
+
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+    
     writing-mode: vertical-rl;
     text-orientation: mixed;
     z-index: 100;
+    align-items: stretch;
 
   
   }
