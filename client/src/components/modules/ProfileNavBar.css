@@ -16,6 +16,7 @@
     justify-content: center;
     align-items: center;
     align-content: center;
+    position:relative;
 
 }
 
@@ -37,11 +38,13 @@
 .notify-circle{
     background-color: red;
     border-radius: 50%;
-    width:30px;
-    height: 30px;
-    position: relative;
-    top:-80px;
-    right: -40px;
+    width:45px;
+    height:45px;
+    position: absolute;
+    /* top: 10%;
+    right: 15%; */
+    top: 5px;
+    left: 52%;
 
     z-index: 10000;
 

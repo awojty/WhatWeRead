@@ -201,6 +201,8 @@ class ProfileNavBar extends Component {
   respondFriend = (user_id, accepted, index, _id) => {
 
     if(this.props.respondFriend !==undefined){
+
+      console.log("im unsing the page fuctino" );
       this.props.respondFriend(user_id, accepted, index, _id);
 
       let count = this.removeAtIndex(this.state.invitations, index);
@@ -347,6 +349,8 @@ class ProfileNavBar extends Component {
 
   render() {
 
+    console.log("state pf the navbar", this.state);
+
 
    
  
@@ -363,8 +367,10 @@ class ProfileNavBar extends Component {
 
 <div>
       <div onClick={this.handleFriendClick} className="personal-navbar-item">
+      {this.state.countFriendInvitations!==0 ? <div className="notify-circle"></div>:null} 
+        
         <img src={addFriends}></img>
-        {this.state.countFriendInvitations!==0 ? <div className="notify-circle"></div>:null}
+       
             </div>
             {this.state.friendClicked ? this.friendInvitationContent() : null}
 

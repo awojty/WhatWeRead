@@ -35,7 +35,9 @@ class PersonComponent extends Component {
       return "Already inviited or a friend";
     }
 
-    const body = { friend_id: this.props.userId, friend_name:this.props.name };
+    const body = { 
+      friend_id: this.props.friendId,
+       friend_name:this.props.name };
     const goalObjs = await post("/api/invitefriend", body);
     this.setState({
       canAddFriend:false,
@@ -48,7 +50,8 @@ class PersonComponent extends Component {
   };
 
   checkCanInvite = async () => {
-    const body = { friend_id: this.props.userId };
+    console.log("im checking friend props", this.props);
+    const body = { friend_id: this.props.friendId };
     const goalObjs = await get("/api/caninvite", body);
     return goalObjs;
   };
@@ -57,6 +60,8 @@ class PersonComponent extends Component {
 
 
         this.checkCanInvite().then((response)=> {
+
+          console.log("resopse", response);
           this.setState({
             canAddFriend:response.response
           })

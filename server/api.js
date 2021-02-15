@@ -930,7 +930,7 @@ router.get("/getpeopleinvitedtobookclub", (req, res) => {
 
 
 router.get("/caninvite", (req, res) => {
-  console.log("CANINVITE");
+  console.log("CANINVITE", req.query.friend_id);
 
   let body = {
     $and: [
@@ -939,7 +939,12 @@ router.get("/caninvite", (req, res) => {
 
     ]
   };
-  BookclubMember.find(body).then((friends) => {
+
+  console.log("body of can invite", body);
+  Friend.find(body).then((friends) => {
+
+    console.log("can invite", friends);
+
     if (!friends.length) {
       res.send({ response: true });
     } else {

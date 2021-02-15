@@ -253,9 +253,10 @@ class PersonalPage extends Component {
 
     if (accepted === true) {
 
-      post("/api/respondbookclubinvite", body).then(
+      post("/api/respondbookclubinvite", body).then((res)=>
 
         this.setState({
+         
           bookclubInvites: this.removeAtIndex(this.state.bookclubInvites, index)
         })
       );
@@ -285,9 +286,10 @@ class PersonalPage extends Component {
 
     if (accepted === true) {
 
-      post("/api/respondfriend", body).then(
+      post("/api/respondfriend", body).then((res)=>
 
         this.setState({
+          friendList: this.state.friendList.concat([res]),
           invitations: this.removeAtIndex(this.state.invitations, index)
         })
       );

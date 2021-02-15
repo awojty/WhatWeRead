@@ -6,6 +6,8 @@ import { navigate } from "@reach/router";
 import "../../utilities.css";
 import "./Skeleton.css";
 
+import ProfileNavBar from "../modules/ProfileNavBar";
+
 
 import "./CommunityPage.css";
 
@@ -76,17 +78,51 @@ class CommunityPage extends Component {
   };
 
 
+  respondFriend = (user_id, accepted, index, _id) => {
+
+    const body = {
+      _id: _id,
+      accepted: accepted,
+      user_id: user_id,
+    };
+
+    if (accepted === true) {
+
+      post("/api/respondfriend", body).then(
+
+        this.setState({
+          invitations: this.removeAtIndex(this.state.invitations, index)
+        })
+      );
+    } else {
+
+      const query = {
+        _id: _id,
+        user_id: user_id,
+      };
+      post("/api/deletefriend", query).then(
+        this.setState({
+          invitations: this.removeAtIndex(this.state.invitations, index)
+        })
+
+      );
+    }
+  }
+
+
+
 
   render() {
     return (
       <div>
-        <NavBar/>
+        <ProfileNavBar name={this.props.name} respondFriend={this.respondFriend}/>
+
 
         <div className="app-container">
                   {this.state.userIds.map((user) => {
                     const name = this.state.users.filter((elem) => user === elem._id);
                     const userName = (name.length === 1) ? name[0].name : "NONAME";
-                    return (<PersonComponent  name={userName} userId={user}/>);
+                    return (<PersonComponent  name={userName} friendId={user}/>);
                   })}
                 
               </div>

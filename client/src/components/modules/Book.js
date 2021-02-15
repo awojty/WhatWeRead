@@ -75,6 +75,9 @@ class Book extends Component {
   }
 
   showHoverbox =()=>{
+    this.setState({
+      isClicked:!this.state.isClicked
+    })
     this.props.handleBookClick(
       this.state.title,
       this.state.color,
