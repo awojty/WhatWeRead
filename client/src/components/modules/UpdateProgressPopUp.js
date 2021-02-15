@@ -28,31 +28,20 @@ class UpdateProgressPopUp extends Component {
 
   handleChangeProgress = (event) => {
     this.setState({
-      completeNew: event.target.value,
+      completeNew: Number(event.target.value),
     });
 
   }
 
 
-  hoverbox = (deleteConfirmButton, progressGoal, reviewGoal, deleteGoal,inviteGoal,movebookcaseGoal) => {
-      if (this.state.showDeleteConfirm) {
-        return deleteConfirmButton;
-      } else {
-        return (
-          <>
-            {progressGoal}
-            {reviewGoal}
-            {inviteGoal}
-            {deleteGoal}
-            {movebookcaseGoal}
 
-          </>
-        );
-      }
-    };
 
   componentDidMount() {
     // remember -- api calls go here!
+    this.setState({
+      completeNew:this.props.completed_pages,
+     
+    })
   }
 
   showDeleteConfirmButton = () => {
@@ -72,6 +61,7 @@ class UpdateProgressPopUp extends Component {
   }
 
   submitProgress = () => {
+
     let body = {
       book_id : this.props.book_id,
       
@@ -88,6 +78,8 @@ class UpdateProgressPopUp extends Component {
     post("/api/updateprogress", body).then((response) =>{
 
       console.log("returned after progress update is", response);
+      this.props.handleProgressChange(this.state.completeNew,this.props.total_paged-this.state.completeNew);
+
 
 
 
@@ -109,7 +101,7 @@ class UpdateProgressPopUp extends Component {
     return (
       <>
         <div className="bookcase-hoverbox">
-        <span className="close" onClick={()=>this.props.toggleProgress()}>
+        <span className="close" onClick={()=>this.props.closeProgressPopUp()}>
               &times;
             </span>
             <input
@@ -121,7 +113,7 @@ class UpdateProgressPopUp extends Component {
             </input>
           <div>{this.props.title}</div>
           <div>{this.props.author}</div>
-         <ProgressBar total={this.props.total_pages} completed={this.props.completed_pages}/>
+         <ProgressBar total={this.props.total_pages} completed={this.state.completeNew}/>
          <img className="book-cover-popup" src={this.props.image}></img>
          <button onClick={this.submitProgress}>Update progress</button>
 

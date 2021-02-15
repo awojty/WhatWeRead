@@ -32,14 +32,14 @@ class Bookcase extends Component {
       user_id:this.props._id,
       title:this.props.title,
     };
-    console.log("BOOKTITLE" ,body);
+    //console.log("BOOKTITLE" ,body);
 
     get("/api/getbooksforbookcase", body).then((book)=>{
       console.log("books for a given case", book);
 
       const ids = this.createIdsList(book);
       const Shelves = this.divideArrayIntoShelfs(book);
-      console.log("shelvsd", Shelves)
+      //console.log("shelvsd", Shelves)
       this.setState({
         Books: book,
         bookIds: ids,
@@ -53,14 +53,12 @@ class Bookcase extends Component {
   createIdsList = (booksList) =>{
     //return lsit of ids of boooks that belong to the user
 
-    console.log("booksList bookcase", booksList);
+ 
     let idsList = [];
     for(let i=0;i<booksList.length;i++){
       let id = booksList[i]._id;
       idsList.push(id);
     };
-
-    console.log("result create ids lsit", idsList);
 
     return idsList;
 
@@ -69,8 +67,7 @@ class Bookcase extends Component {
 
   returnShelf = (shelf) => {
 
-    console.log("state before return shelf", this.state);
-    console.log("input int the returhShelf function", shelf);
+  
 
     return ( <Shelf books={shelf}/>);
   }
@@ -95,10 +92,11 @@ class Bookcase extends Component {
 
     get("/api/getbooksforbookcase", body).then((book)=>{
       console.log("books for a given case", book);
+      console.log("AAAbooks", book[0]);
 
       const ids = this.createIdsList(book);
       const Shelves = this.divideArrayIntoShelfs(book);
-      console.log("shelvsd", Shelves)
+      
       this.setState({
         Books: book,
         bookIds: ids,
@@ -121,6 +119,13 @@ class Bookcase extends Component {
     //   this.getBooks();
     // }
 
+    if(this.props.progress_change){
+      console.log("HANDLE  progress CHANGE TRIGGERED IN BOOKCASE");
+      this.getBooks();
+      //this.props.handleProgressChange();
+      this.props.stopProgressChange();
+    }
+
 
 
     
@@ -128,7 +133,7 @@ class Bookcase extends Component {
     //console.log("BOOKTI bookcase state", this.state);
 
 
-    console.log("bookcas books state", this.state.bookIds);
+   
 
     const hello = this.state.bookIds;
 
@@ -152,6 +157,9 @@ class Bookcase extends Component {
         
         {this.state.shelves.map((shelf)=>{
           return( <Shelf 
+            showBookPopUp={this.props.showBookPopUp}
+            showHighlight={this.props.showHighlight}
+
             books={shelf} 
             handleBookClick={this.props.handleBookClick}
             selected_delete_id={this.props.selected_delete_id}

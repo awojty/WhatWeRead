@@ -89,6 +89,12 @@ class Book extends Component {
        );
   }
 
+  highlight = () => {
+    this.setState({
+      isClicked: !this.state.isClicked,
+    })
+  }
+
 
   render() {
     console.log("BOOKTITLE book", this.state);
@@ -111,8 +117,8 @@ class Book extends Component {
         return (
           <div>
            
-            <div onClick={this.showHoverbox} 
-            className={`noselect book${this.state.isClicked ?  ' selected' : ''}`}  
+            <div onClick={()=>{this.showHoverbox(), this.highlight()}} 
+            className={`noselect book${(this.state.isClicked && this.props.showHighlight && this.props.selected_delete_id===this.state._id) ?  ' selected' : ''}`}  
             style={{"backgroundColor":this.state.color}}>{this.state.title}
             </div>
  

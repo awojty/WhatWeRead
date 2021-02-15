@@ -54,8 +54,15 @@ class HomeDashboard extends Component {
       review:"",
       selected_delete:false,
       startConfetti:false,
+      progress_change:false,
   }
 
+}
+
+changeBoolProgress = () => {
+  this.setState({
+    progress_change:!this.state.progress_change,
+  })
 }
 
 onChangeTitle = (event) => {
@@ -144,6 +151,7 @@ handleCloseClick = () => {
   this.setState({
 
     showBookPopUp:!this.state.showBookPopUp,
+    showHighlight:false,
 
 
   });
@@ -154,17 +162,35 @@ handleCloseClick = () => {
 handleBookClick = (title,color,author,id, total_pages, completed_pages, image) => {
   console.log("GGGGGGGGGGGGggg")
 
-  this.setState({
-    selected_title: title,
-    selected_color: color,
-    selected_author: author,
-    selected_id: id,
-    showBookPopUp:!this.state.showBookPopUp,
-    total_pages: total_pages,
-    completed_pages: completed_pages,
-    image:image
+  let bdy = {
+    book_id:id
+  }
 
-  });
+  console.log("returned onBookClick body", bdy);
+
+  console.log("returned onBookClick", author,id, total_pages, completed_pages, image)
+
+  get("/api/getbook", bdy).then((res)=>{
+    console.log("returned onBookClickres1", author,id, total_pages, completed_pages, image);
+    console.log("returned onBookClickres2", res);
+    this.setState({
+      selected_title: res.title,
+      selected_color: res.color,
+      selected_author: res.author,
+      selected_id: res._id,
+      showBookPopUp:!this.state.showBookPopUp,
+      total_pages: res.total_pages,
+      completed_pages:res.completed_pages,
+      image:res.image,
+      showHighlight:true,
+  
+    });
+  
+
+
+
+  })
+
 
 
   
@@ -186,8 +212,32 @@ toggleProgress = () => {
     showUpdateProgressPopUp: !this.state.showUpdateProgressPopUp,
     showBookPopUp:false,
     showMoveBookcasePopUp:false,
+    showHighlight: true,
 
   })
+}
+
+closeProgressPopUp = () => {
+
+  this.setState ({
+    showUpdateProgressPopUp: false,
+    showBookPopUp:false,
+    showMoveBookcasePopUp:false,
+    showHighlight: false,
+
+  });
+}
+
+closeMoveBookcasePopUp = () => {
+
+  this.setState ( {
+    showUpdateProgressPopUp: false,
+    showBookPopUp:false,
+    showMoveBookcasePopUp:false,
+    showHighlight: false,
+
+  })
+
 }
 
 
@@ -196,6 +246,7 @@ toggleMoveBookcase = () => {
     showMoveBookcasePopUp: !this.state.showMoveBookcasePopUp,
     showUpdateProgressPopUp:false,
     showMoveBookPopUp:false,
+    showHighlight:true,
 
   })
 }
@@ -245,6 +296,7 @@ onFinishBook = () => {
   this.setState({
     startConfetti:true,
     showBookPopUp:false,
+    showHighlight:false,
   });
 
   this.submitFinalProgress();
@@ -278,6 +330,25 @@ submitFinalProgress = () => {
 };
 
 
+handleProgressChange = (complete,remaining) => {
+
+  console.log("handleprogresschange, complerte, remain", complete, remaining);
+  this.setState({
+    completed_pages:complete,
+    remaining_pages:remaining,
+    progress_change:true
+  })
+}
+
+stopProgressChange = () => {
+
+  this.setState({
+   
+    progress_change:false
+  })
+}
+
+
 
 
 
@@ -286,10 +357,9 @@ submitFinalProgress = () => {
   
   render() {
 
-    console.log("ststae", this.state.bookcases);
+    console.log("handleprogresschange, complerte, STATE", this.state);
 
-    console.log("BOOKTITLE home render", this.state);
-    console.log("stars", this.state.stars);
+
 
 
     return (
@@ -321,6 +391,8 @@ submitFinalProgress = () => {
 
 {this.state.showUpdateProgressPopUp ? 
       <UpdateProgressPopUp
+      closeProgressPopUp = {this.closeProgressPopUp}
+      handleProgressChange = {this.handleProgressChange}
       handleCloseClick={this.handleCloseClick}
       toggleProgress={this.toggleProgress}
       handleBookClick={this.handleBookClick}
@@ -335,6 +407,8 @@ submitFinalProgress = () => {
 
 {this.state.showMoveBookcasePopUp ? 
       <MoveBookcasePopUp
+      closeProgressPopUp = {this.closeProgressPopUp}
+
       handleCloseClick={this.handleCloseClick}
       toggleProgress={this.toggleMoveBookcase}
       toggleMoveBookcase={this.toggleMoveBookcase}
@@ -361,12 +435,19 @@ submitFinalProgress = () => {
        
             {this.state.bookcases.slice(0,2).map((bookcase,i)=>{
          return(<Bookcase
+         stopProgressChange = {this.stopProgressChange}
            key = {i} 
+           handleProgressChange={this.handleProgressChange}
+           showBookPopUp={this.state.showBookPopUp}
+
+           showHighlight={this.state.showHighlight}
+           
            _id={bookcase.user_id}
             title={bookcase.title}
              handleBookClick={this.handleBookClick}
              selected_delete_bool={this.state.selected_delete}
              selected_delete_id={this.state.selected_id}
+             progress_change={this.state.progress_change}
              />);
 
             })}
@@ -387,6 +468,9 @@ submitFinalProgress = () => {
 
       {this.state.bookcases.slice(2).map((bookcase,i)=>{
          return(<Bookcase key ={i}
+          showHighlight={this.state.showHighlight}
+          stopProgressChange = {this.stopProgressChange}
+          handleProgressChange={this.handleProgressChange}
            _id={bookcase.user_id} 
           title={bookcase.title}
            handleBookClick={this.handleBookClick} 

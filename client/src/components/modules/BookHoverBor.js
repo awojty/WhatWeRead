@@ -109,7 +109,7 @@ class BookHoverBox extends Component {
 
   render() {
     console.log("hoverbox props", this.props);
-    console.log("state", this.state);
+    console.log("BOOOKTITLE bookhoverstate", this.state);
 
     const Star= this.props.stars;
 

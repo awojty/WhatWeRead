@@ -103,7 +103,7 @@ class MoveBookcasePopUp extends Component {
     return (
       <>
         <div className="bookcase-hoverbox">
-        <span className="close" onClick={()=>this.props.toggleProgress()}>
+        <span className="close" onClick={()=>this.props.closeProgressPopUp()}>
               &times;
             </span>
 

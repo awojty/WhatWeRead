@@ -49,6 +49,9 @@ class Shelf extends Component {
              {this.state.bookCovers.map((book) => (
                <>
              <Book 
+            showBookPopUp={this.props.showBookPopUp}
+            showHighlight={this.props.showHighlight}
+
              book={book} 
              handleBookClick={this.props.handleBookClick}
              selected_delete_id={this.props.selected_delete_id}
